@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11. Sınıf Akıllı Ders ve Beceri Platformu</title>
+    <!-- FontAwesome İkonları (Ücretsiz CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==================== CSS TASARIM KODLARI ==================== */
+        
+        /* KARANLIK TEMA (VARSAYILAN) */
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+            --accent-color: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --option-bg: #334155;
+            --option-hover: #475569;
+        }
+
+        /* AYDINLIK TEMA DEĞİŞKENLERİ */
+        :root.light-mode {
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --text-sub: #475569;
+            --border-color: #cbd5e1;
+            --accent-color: #0284c7;
+            --accent-hover: #0369a1;
+            --option-bg: #e2e8f0;
+            --option-hover: #cbd5e1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Tema Butonu */
+        .theme-btn {
+            background: var(--option-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .theme-btn:hover {
+            background: var(--option-hover);
+        }
+
+        .container {
+            flex: 1;
+            padding: 30px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Ana Sayfa */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+
+        .btn-main {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-main:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* Ders Listesi */
+        .section-desc {
+            color: var(--text-sub);
+            margin-bottom: 30px;
+        }
+
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .lesson-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .lesson-card i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .lesson-card.tech {
+            border-left: 5px solid #a855f7;
+        }
+
+        .lesson-card.tech i {
+            color: #a855f7;
+        }
+
+        .lesson-card h3 {
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+        }
+
+        .lesson-card span {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        /* Ders Odası */
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .room-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+        }
+
+        @media(max-width: 900px) {
+            .room-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .video-box, .quiz-box {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .video-box h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .quiz-header h3 {
+            color: var(--accent-color);
+        }
+
+        /* 7 Dakikalık Sayaç Stili */
+        .timer {
+            background-color: #ef4444;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .iframe-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .iframe-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        /* Test Soruları */
+        .question-item {
+            margin-bottom: 20px;
+        }
+
+        .question-item p {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .options label {
+            display: block;
+            background-color: var(--option-bg);
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .options label:hover {
+            background-color: var(--option-hover);
+        }
+
+        #submit-quiz-btn {
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        #submit-quiz-btn:hover {
+            background-color: #16a34a;
+        }
+
+        #quiz-result {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .success-result {
+            background-color: #14532d;
+            color: #4ade80;
+            border: 1px solid #22c55e;
+        }
+
+        .fail-result {
+            background-color: #7f1d1d;
+            color: #f87171;
+            border: 1px solid #ef4444;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Hakkında */
+        .about-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--card-bg);
+            color: var(--text-sub);
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ÜST MENÜ -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i> <span>11. Sınıf Akademi</span>
+        </div>
+        <nav>
+            <a href="#" onclick="showSection('home')"><i class="fa-solid fa-house"></i> Ana Sayfa</a>
+            <a href="#" onclick="showSection('lessons')"><i class="fa-solid fa-book-open"></i> Dersler</a>
+            <a href="#" onclick="showSection('about')"><i class="fa-solid fa-circle-info"></i> Proje Hakkında</a>
+            <!-- Tema Değiştirme Butonu -->
+            <button id="theme-toggle" onclick="toggleTheme()" class="theme-btn">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- ANA İÇERİK ALANI -->
+    <main class="container">
+
+        <!-- 1. ANA SAYFA -->
+        <section id="home" class="content-section active">
+            <div class="hero">
+                <h1>11. Sınıf ve Bilişim Teknolojileri Çalışma Platformu</h1>
+                <p>Eksik olduğun konuları izle, 7 dakikalık süre sınırlı testleri çöz, kendini anında değerlendir!</p>
+                <button class="btn-main" onclick="showSection('lessons')">Derslere Hemen Başla <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fa-solid fa-video"></i>
+                    <h3>YouTube Destekli</h3>
+                    <p>Konuları en güncel ve anlaşılır video anlatımlarıyla pekiştirin.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>Mesleki Dersler</h3>
+                    <p>Web Tasarım, Grafik Canlandırma, Dijital Tasarım ve Mobil Uygulamalar bir arada.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-clock"></i>
+                    <h3>7 Dk Süreli Test</h3>
+                    <p>Her konu sonunda 7 dakikalık sayaçlı testlerle sınav pratikliği kazanın.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. DERSLER LİSTESİ -->
+        <section id="lessons" class="content-section">
+            <h2>11. Sınıf ve Alan Dersleri</h2>
+            <p class="section-desc">Çalışmak istediğiniz dersi seçerek konu listesine ulaşabilirsiniz.</p>
+            
+            <div class="lesson-grid">
+                <!-- Kültür Dersleri -->
+                <div class="lesson-card" onclick="openLesson('Matematik', 'Trigonometri', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                    <i class="fa-solid fa-square-root-variable"></i>
+                    <h3>Matematik</h3>
+                    <span>Trigonometri & Analitik</span>
+                </div>
+                <div class="lesson-card" onclick="openLesson('Fizik', 'Kuvvet ve Hareket', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                    <i class="fa-solid fa-atom"></i>
+                    <h3>Fizik</h3>
+                    <span>Vektörler ve Newton</span>
+                </div>
+                <div class="lesson-card" onclick="openLesson('Kimya', 'Modern Atom Teorisi', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                    <i class="fa-solid fa-flask"></i>
+                    <h3>Kimya</h3>
+                    <span>Atomun Kuantum Modeli</span>
+                </div>
+                <div class="lesson-card" onclick="openLesson('Türk Dili ve Edebiyatı', 'Münazara ve Roman', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                    <i class="fa-solid fa-book"></i>
+                    <h3>Türk Dili ve Edebiyatı</h3>
+                    <span>19. Yüzyıl Türk Edebiyatı</span>
+                </div>
+
+                <!-- Özel / Mesleki Dersler -->
+                <div class="lesson-card tech" onclick="openLesson('Web Tasarım', 'HTML5 ve CSS3 Temelleri', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>Web Tasarım</h3>
+                    <span>HTML, CSS ve Responsive Tasarım</span>
+                </div>
+                <div class="lesson-card tech" onclick="openLesson('Grafik Canlandırma', 'Animasyon Temelleri', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <h3>Grafik Canlandırma</h3>
+                    <span>Vektörel Çizim & Kare Kare Animasyon</span>
+                </div>
+                <div class="lesson-card tech" onclick="openLesson('Dijital Tasarım', 'Arayüz ve Görsel Tasarım', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                    <i class="fa-solid fa-palette"></i>
+                    <h3>Dijital Tasarım</h3>
+                    <span>UI/UX ve Görsel Düzenleme</span>
+                </div>
+                <div class="lesson-card tech" onclick="openLesson('Mobil Uygulamalar', 'Mobil Programlamaya Giriş', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <h3>Mobil Uygulamalar</h3>
+                    <span>Uygulama Temelleri ve Mantığı</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. DERS DETAY VE VİDEO / TEST SAYFASI -->
+        <section id="lesson-room" class="content-section">
+            <button class="btn-back" onclick="showSection('lessons')"><i class="fa-solid fa-arrow-left"></i> Derslere Dön</button>
+            <h2 id="room-title">Ders Adı</h2>
+            
+            <div class="room-container">
+                <!-- Video Alanı -->
+                <div class="video-box">
+                    <h3><i class="fa-solid fa-play-circle"></i> Konu Anlatım Videosu</h3>
+                    <div class="iframe-wrapper">
+                        <iframe id="lesson-video" src="" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <!-- Test Alanı -->
+                <div class="quiz-box">
+                    <div class="quiz-header">
+                        <h3><i class="fa-solid fa-clipboard-question"></i> Konu Değerlendirme Testi</h3>
+                        <!-- 7 Dakikalık Sayaç -->
+                        <div id="timer-box" class="timer"><i class="fa-regular fa-clock"></i> Kalan Süre: <span id="timer-display">07:00</span></div>
+                    </div>
+
+                    <div id="quiz-container">
+                        <!-- Sorular JavaScript ile yüklenecek -->
+                    </div>
+                    <button id="submit-quiz-btn" onclick="checkQuiz()">Testi Bitir ve Sonucu Gör</button>
+                    <div id="quiz-result" class="hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PROJE HAKKINDA -->
+        <section id="about" class="content-section">
+            <h2>Proje Hakkında ve Kullanım Amacı</h2>
+            <div class="about-card">
+                <p><strong>Proje Adı:</strong> 11. Sınıf Akıllı Tahta Destekli Ders Çalışma ve Beceri Platformu</p>
+                <p><strong>Hazırlayan:</strong> 11. Sınıf Öğrencisi</p>
+                <p><strong>Özellikler:</strong> Gece/Gündüz Teması, 7 Dakikalık Zaman Sınırlı Test Modülü ve Bilişim Dersleri Kataloğu.</p>
+                <p><strong>Kimler Kullanabilir:</strong> 11. sınıf öğrencileri ve öğretmenler akıllı tahta ders anlatımlarında.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - 11. Sınıf Dijital Ders Platformu | Yapay Zeka Destekli Okul Projesi</p>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT KODLARI ==================== -->
+    <script>
+        let timerInterval = null;
+        let timeLeft = 420; // 7 Dakika = 420 Saniye
+
+        // Tema Değiştirme (Karanlık / Aydınlık Mod)
+        function toggleTheme() {
+            const root = document.documentElement;
+            const themeBtnIcon = document.querySelector('#theme-toggle i');
+            
+            root.classList.toggle('light-mode');
+            
+            if (root.classList.contains('light-mode')) {
+                themeBtnIcon.className = 'fa-solid fa-sun';
+            } else {
+                themeBtnIcon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        // Sayfa Geçişleri
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo(0, 0);
+
+            // Ders odasından çıkılırsa sayacı durdur
+            if (sectionId !== 'lesson-room') {
+                clearInterval(timerInterval);
+            }
+        }
+
+        // Ders Odasını Açma ve 7 Dakikalık Sayacı Başlatma
+        function openLesson(lessonName, topicName, videoUrl) {
+            showSection('lesson-room');
+            document.getElementById('room-title').innerText = `${lessonName} - ${topicName}`;
+            document.getElementById('lesson-video').src = videoUrl;
+            
+            // Test Sonucunu Sıfırla
+            document.getElementById('quiz-result').className = 'hidden';
+            document.getElementById('quiz-result').innerText = '';
+
+            // Testi Yükle ve 7 Dakikalık Sayacı Başlat
+            loadQuiz(lessonName);
+            startTimer();
+        }
+
+        // 7 Dakikalık Geri Sayım Sayacı
+        function startTimer() {
+            clearInterval(timerInterval); // Önceki sayacı sıfırla
+            timeLeft = 420; // 7 dakikaya ayarla
+            
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("7 dakikalık sınav süreniz doldu! Test otomatik tamamlanıyor.");
+                    checkQuiz(); // Süre bitince testi otomatik bitir
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+            const secondsStr = seconds < 10 ? '0' + seconds : seconds;
+            
+            document.getElementById('timer-display').innerText = `${minutesStr}:${secondsStr}`;
+        }
+
+        // Test Yükleme
+        function loadQuiz(lesson) {
+            const quizContainer = document.getElementById('quiz-container');
+            
+            let questionsHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                questionsHTML += `
+                    <div class="question-item" data-q="${i}">
+                        <p>${i}. ${lesson} konusuyla ilgili değerlendirme sorusu ${i}?</p>
+                        <div class="options">
+                            <label><input type="radio" name="q${i}" value="A"> A) Şık A Seçeneği</label>
+                            <label><input type="radio" name="q${i}" value="B"> B) Doğru Yanıt</label>
+                            <label><input type="radio" name="q${i}" value="C"> C) Şık C Seçeneği</label>
+                        </div>
+                    </div>
+                `;
+            }
+            quizContainer.innerHTML = questionsHTML;
+        }
+
+        // Test Sonucunu Kontrol Etme
+        function checkQuiz() {
+            clearInterval(timerInterval); // Test bitince sayacı durdur
+
+            let correctCount = 0;
+            const correctAnswers = { q1: 'B', q2: 'B', q3: 'B', q4: 'B', q5: 'B' };
+
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === correctAnswers[`q${i}`]) {
+                    correctCount++;
+                }
+            }
+
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.remove('hidden');
+
+            if (correctCount >= 4) {
+                resultDiv.className = 'success-result';
+                resultDiv.innerHTML = `Tebrikler! 5 soru üzerinden ${correctCount} doğru yaptınız. Süreniz bitmeden tamamladınız! 🎉`;
+            } else {
+                resultDiv.className = 'fail-result';
+                resultDiv.innerHTML = `Test Sonucu: 5 soru üzerinden ${correctCount} doğru. Videoyu tekrar izlemeniz önerilir! 📚`;
+            }
+        }
+    </script>
+</body>
+</html>
