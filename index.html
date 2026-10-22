@@ -104,43 +104,9 @@
             transition: 0.2s;
         }
 
-        .nav-link:hover {
+        .nav-link:hover, .nav-link.active {
             background: rgba(255,255,255,0.1);
             color: var(--accent-color);
-        }
-
-        /* Açılır Menü (Dropdown) */
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            min-width: 280px;
-            z-index: 1000;
-            padding: 8px 0;
-        }
-
-        .nav-item:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 10px 16px;
-            color: var(--text-color);
-            display: block;
-            text-decoration: none;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: background 0.2s;
-        }
-
-        .dropdown-item:hover {
-            background: var(--accent-color);
-            color: white;
         }
 
         /* Sol Yan Menü (Ayarlar Sidebar) */
@@ -214,7 +180,7 @@
             cursor: pointer;
         }
 
-        /* Hero / Ana Sayfa Tasarımı (Gönderdiğin görsele benzer) */
+        /* Hero / Ana Sayfa Tasarımı */
         .hero-section {
             text-align: center;
             padding: 60px 20px;
@@ -243,6 +209,34 @@
             padding: 30px;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Dersler Sayfası Kartlar Grid Yapısı */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .course-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .course-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
         }
 
         /* Hakkında Sayfası */
@@ -374,20 +368,10 @@
         </div>
         <ul class="nav-links">
             <li class="nav-item">
-                <a class="nav-link" onclick="showHomePage()" id="nav-home">🏠 Ana Sayfa</a>
+                <a class="nav-link active" onclick="showHomePage()" id="nav-home">🏠 Ana Sayfa</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="nav-courses">📚 Dersler ▾</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" onclick="loadLesson('math')">📐 Matematik</a>
-                    <a class="dropdown-item" onclick="loadLesson('physics')">⚡ Fizik</a>
-                    <a class="dropdown-item" onclick="loadLesson('chemistry')">🧪 Kimya</a>
-                    <a class="dropdown-item" onclick="loadLesson('biology')">🧬 Biyoloji</a>
-                    <a class="dropdown-item" onclick="loadLesson('web')">💻 Web Tabanlı Uygulama Geliştirme</a>
-                    <a class="dropdown-item" onclick="loadLesson('network')">🌐 Ağ Sistemleri ve Anahtarlama</a>
-                    <a class="dropdown-item" onclick="loadLesson('db')">🗄️ Veritabanı Seçimi ve Yönetimi</a>
-                    <a class="dropdown-item" onclick="loadLesson('graphics')">🎨 Grafik ve Animasyon</a>
-                </div>
+                <a class="nav-link" onclick="showCoursesPage()" id="nav-courses">📚 Dersler</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" onclick="showAboutPage()" id="nav-about">ℹ️ Hakkında</a>
@@ -447,12 +431,70 @@
             
             <div class="hero-card-box">
                 <h3 style="margin-top: 0;">🚀 Eğitime Hemen Başlayın</h3>
-                <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;">Yukarıdaki menüden **Dersler** sekmesine tıklayarak 11. sınıf müfredatındaki dersleri seçip hemen video ve testlere ulaşabilirsiniz.</p>
-                <button onclick="loadLesson('math')" style="background: var(--accent-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer;">Matematik İle Başla</button>
+                <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;">11. sınıf müfredatındaki derslere erişmek, konu videolarını izlemek ve test çözmek için dersler sayfamızı inceleyin.</p>
+                <button onclick="showCoursesPage()" style="background: var(--accent-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer;">Dersleri İncele</button>
             </div>
         </div>
 
-        <!-- 2. HAKKINDA SAYFASI -->
+        <!-- 2. DERSLER LİSTESİ SAYFASI -->
+        <div id="courses-view" class="hidden">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2>📚 11. Sınıf Ders Kataloğu</h2>
+                <p style="color: #94a3b8;">Çalışmak istediğiniz ders modülünü seçerek video ve test alanına geçebilirsiniz.</p>
+            </div>
+
+            <div class="courses-grid">
+                <div class="course-card" onclick="loadLesson('math')">
+                    <div class="course-icon">📐</div>
+                    <h3>Matematik</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Trigonometri ve Fonksiyonlar</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('physics')">
+                    <div class="course-icon">⚡</div>
+                    <h3>Fizik</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Kuvvet, Vektörler ve Hareket</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('chemistry')">
+                    <div class="course-icon">🧪</div>
+                    <h3>Kimya</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Modern Atom Teorisi ve Gazlar</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('biology')">
+                    <div class="course-icon">🧬</div>
+                    <h3>Biyoloji</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">İnsan Fizyolojisi ve Sistemler</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('web')">
+                    <div class="course-icon">💻</div>
+                    <h3>Web Uygulama Geliştirme</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">JavaScript, DOM ve HTML5</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('network')">
+                    <div class="course-icon">🌐</div>
+                    <h3>Ağ Sistemleri ve Anahtarlama</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">VLAN, Switch ve Port Güvenliği</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('db')">
+                    <div class="course-icon">🗄️</div>
+                    <h3>Veritabanı Yönetimi</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">SQL Sorguları ve Normalizasyon</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('graphics')">
+                    <div class="course-icon">🎨</div>
+                    <h3>Grafik ve Animasyon</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Vektörel Çizim ve Katmanlar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. HAKKINDA SAYFASI -->
         <div id="about-view" class="about-section hidden">
             <h2>ℹ️ OdakLab Hakkında</h2>
             <p>OdakLab, öğrencilerin mesleki ve akademik derslerde başarılarını artırmak, konuları interaktif video ve testlerle pekiştirmelerini sağlamak amacıyla geliştirilmiş yenilikçi bir eğitim portalıdır.</p>
@@ -460,7 +502,7 @@
             <p><strong>Hazırlayan:</strong> Atlas Özdemir</p>
         </div>
 
-        <!-- 3. DERS İÇERİK GÖRÜNÜMÜ -->
+        <!-- 4. DERS İÇERİK GÖRÜNÜMÜ (VİDEO + QUIZ) -->
         <div id="lesson-view" class="hidden">
             <!-- Üst Başlık ve Sayaç Barı -->
             <div class="header-bar">
@@ -499,7 +541,7 @@
 
     </div>
 
-    <!-- JavaScript Yapısı ve 8 Dersin Verileri -->
+    <!-- JavaScript Yapısı -->
     <script>
         const lessonsData = {
             math: {
@@ -615,15 +657,35 @@
             document.getElementById('settings-sidebar').classList.toggle('open');
         }
 
+        function clearActiveNav() {
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+        }
+
         function showHomePage() {
+            clearActiveNav();
+            document.getElementById('nav-home').classList.add('active');
             document.getElementById('home-view').classList.remove('hidden');
+            document.getElementById('courses-view').classList.add('hidden');
+            document.getElementById('about-view').classList.add('hidden');
+            document.getElementById('lesson-view').classList.add('hidden');
+            clearInterval(timerInterval);
+        }
+
+        function showCoursesPage() {
+            clearActiveNav();
+            document.getElementById('nav-courses').classList.add('active');
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('courses-view').classList.remove('hidden');
             document.getElementById('about-view').classList.add('hidden');
             document.getElementById('lesson-view').classList.add('hidden');
             clearInterval(timerInterval);
         }
 
         function showAboutPage() {
+            clearActiveNav();
+            document.getElementById('nav-about').classList.add('active');
             document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('courses-view').classList.add('hidden');
             document.getElementById('about-view').classList.remove('hidden');
             document.getElementById('lesson-view').classList.add('hidden');
             clearInterval(timerInterval);
@@ -633,7 +695,11 @@
             currentLessonKey = key;
             const data = lessonsData[key];
 
+            clearActiveNav();
+            document.getElementById('nav-courses').classList.add('active');
+
             document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('courses-view').classList.add('hidden');
             document.getElementById('about-view').classList.add('hidden');
             document.getElementById('lesson-view').classList.remove('hidden');
 
@@ -733,9 +799,9 @@
         }
 
         const translations = {
-            tr: { navHome: "🏠 Ana Sayfa", navCourses: "📚 Dersler ▾", navAbout: "ℹ️ Hakkında", btnSettings: "Ayarlar", sidebarTitle: "⚙️ Tema ve Ayarlar", modeLabel: "Görünüm Modu:", colorLabel: "Tema Rengi:", langLabel: "Dil / Language:", pdfLabel: "Konu Anlatımı PDF'ini İndir", timerLabel: "Kalan Süre:", quizHeader: "📝 Konu Testi", btnFinish: "Testi Bitir" },
-            en: { navHome: "🏠 Home", navCourses: "📚 Courses ▾", navAbout: "ℹ️ About", btnSettings: "Settings", sidebarTitle: "⚙️ Theme & Settings", modeLabel: "Appearance Mode:", colorLabel: "Theme Color:", langLabel: "Language / Dil:", pdfLabel: "Download Lecture PDF", timerLabel: "Time Left:", quizHeader: "📝 Topic Quiz", btnFinish: "Submit Quiz" },
-            ar: { navHome: "🏠 الصفحة الرئيسية", navCourses: "📚 الدروس ▾", navAbout: "ℹ️ حول", btnSettings: "الإعدادات", sidebarTitle: "⚙️ الإعدادات والمظهر", modeLabel: "وضع العرض:", colorLabel: "لون المظهر:", langLabel: "اللغة:", pdfLabel: "تحميل ملف المحاضرة PDF", timerLabel: "الوقت المتبقي:", quizHeader: "📝 اختبار الموضوع", btnFinish: "إنهاء الاختبار" }
+            tr: { navHome: "🏠 Ana Sayfa", navCourses: "📚 Dersler", navAbout: "ℹ️ Hakkında", btnSettings: "Ayarlar", sidebarTitle: "⚙️ Tema ve Ayarlar", modeLabel: "Görünüm Modu:", colorLabel: "Tema Rengi:", langLabel: "Dil / Language:", pdfLabel: "Konu Anlatımı PDF'ini İndir", timerLabel: "Kalan Süre:", quizHeader: "📝 Konu Testi", btnFinish: "Testi Bitir" },
+            en: { navHome: "🏠 Home", navCourses: "📚 Courses", navAbout: "ℹ️ About", btnSettings: "Settings", sidebarTitle: "⚙️ Theme & Settings", modeLabel: "Appearance Mode:", colorLabel: "Theme Color:", langLabel: "Language / Dil:", pdfLabel: "Download Lecture PDF", timerLabel: "Time Left:", quizHeader: "📝 Topic Quiz", btnFinish: "Submit Quiz" },
+            ar: { navHome: "🏠 الصفحة الرئيسية", navCourses: "📚 الدروس", navAbout: "ℹ️ حول", btnSettings: "الإعدادات", sidebarTitle: "⚙️ الإعدادات والمظهر", modeLabel: "وضع العرض:", colorLabel: "لون المظهر:", langLabel: "اللغة:", pdfLabel: "تحميل ملف المحاضرة PDF", timerLabel: "الوقت المتبقي:", quizHeader: "📝 اختبار الموضوع", btnFinish: "إنهاء الاختبار" }
         };
 
         function changeLanguage(lang) {
