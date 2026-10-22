@@ -180,16 +180,26 @@
             cursor: pointer;
         }
 
-        /* Hero / Ana Sayfa Tasarımı */
+        /* Ana Sayfa (Hero & Görsel Düzeni) */
         .hero-section {
-            text-align: center;
-            padding: 60px 20px;
-            max-width: 800px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 50px 20px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
+        @media (max-width: 768px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
         .hero-title {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 20px;
@@ -197,16 +207,24 @@
         }
 
         .hero-desc {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             color: #94a3b8;
             line-height: 1.6;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            object-fit: cover;
         }
 
         .hero-card-box {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 30px;
+            padding: 25px;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
@@ -424,15 +442,20 @@
     <!-- Ana İçerik Konteyneri -->
     <div class="container">
         
-        <!-- 1. ANA SAYFA GÖRÜNÜMÜ -->
+        <!-- 1. ANA SAYFA GÖRÜNÜMÜ (Görsel + Metin) -->
         <div id="home-view" class="hero-section">
-            <h1 class="hero-title">Öğrenmek isteyen herkes için ücretsiz eğitim desteği</h1>
-            <p class="hero-desc">OdakLab'ın misyonu herkese, her yerde, dünya standartlarında ve ücretsiz eğitim imkânı sağlayarak örgün eğitime; tüm öğrenci, öğretmen ve velilere destek olmaktır.</p>
-            
-            <div class="hero-card-box">
-                <h3 style="margin-top: 0;">🚀 Eğitime Hemen Başlayın</h3>
-                <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;">11. sınıf müfredatındaki derslere erişmek, konu videolarını izlemek ve test çözmek için dersler sayfamızı inceleyin.</p>
-                <button onclick="showCoursesPage()" style="background: var(--accent-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer;">Dersleri İncele</button>
+            <div class="hero-content">
+                <h1 class="hero-title">Öğrenmek isteyen herkes için ücretsiz eğitim desteği</h1>
+                <p class="hero-desc">OdakLab'ın misyonu herkese, her yerde, dünya standartlarında ve ücretsiz eğitim imkânı sağlayarak örgün eğitime; tüm öğrenci, öğretmen ve velilere destek olmaktır.</p>
+                
+                <div class="hero-card-box">
+                    <h3 style="margin-top: 0;">🚀 Eğitime Hemen Başlayın</h3>
+                    <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;">11. sınıf müfredatındaki derslere erişmek, konu videolarını izlemek ve test çözmek için dersler sayfamızı inceleyin.</p>
+                    <button onclick="showCoursesPage()" style="background: var(--accent-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer;">Dersleri İncele</button>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Eğitim ve Keşif Görseli">
             </div>
         </div>
 
