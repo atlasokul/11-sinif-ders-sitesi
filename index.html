@@ -385,7 +385,6 @@
         <div class="nav-left">
             <button class="menu-btn" onclick="toggleSidebar()">☰ <span id="lbl-btn-settings">Ayarlar</span></button>
             <div class="brand-container">
-                <!-- Entegre Edilen SVG Mavi Logo -->
                 <div class="site-logo">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
                       <ellipse cx="50" cy="50" rx="35" ry="14" fill="none" stroke="#3b82f6" stroke-width="6" transform="rotate(-30 50 50)"/>
@@ -441,6 +440,9 @@
             <select id="language-select" onchange="changeLanguage(this.value)">
                 <option value="tr">Türkçe</option>
                 <option value="en">English (İngilizce)</option>
+                <option value="fr">Français (Fransızca)</option>
+                <option value="es">Español (İspanyolca)</option>
+                <option value="ar">العربية (Arapça)</option>
             </select>
         </div>
     </div>
@@ -556,7 +558,7 @@
         </footer>
     </div>
 
-    <!-- JavaScript Veri ve Fonksiyonlar -->
+    <!-- JavaScript Veri ve Çeviri Fonksiyonları -->
     <script>
         const lessonsData = {
             math: {
@@ -825,12 +827,22 @@
 
         function changeLanguage(lang) {
             const translations = {
-                tr: { settings: "Ayarlar", home: "Ana Sayfa", courses: "Dersler", about: "Hakkında", mode: "Görünüm Modu", dark: "Karanlık Mod", light: "Aydınlık Mod", color: "Tema Rengi", lang: "Dil / Language", heroTitle: "Öğrenmek isteyen herkes için ücretsiz eğitim desteği", heroDesc: "OdakLab'ın misyonu herkese, her yerde eğitim imkânı sağlamaktır.", startTitle: "🚀 Eğitime Hemen Başlayın", startDesc: "Dersler sayfamızı inceleyin.", explore: "Dersleri İncele", catalogTitle: "📚 11. Sınıf Ders Kataloğu", catalogSub: "Ders seçebilirsiniz.", aboutTitle: "ℹ️ OdakLab Hakkında", aboutP1: "Eğitim portalıdır.", author: "Hazırlayan:", timer: "Kalan Süre:", pdf: "PDF İndir", quizHeader: "📝 Konu Testi", finishQuiz: "Testi Bitir", footer: "OdakLab Eğitim Portalı" },
-                en: { settings: "Settings", home: "Home", courses: "Courses", about: "About", mode: "Appearance", dark: "Dark Mode", light: "Light Mode", color: "Accent Color", lang: "Language", heroTitle: "Free education support for everyone", heroDesc: "OdakLab's mission is education for all.", startTitle: "🚀 Start Learning", startDesc: "Check out our courses.", explore: "Explore Courses", catalogTitle: "📚 Course Catalog", catalogSub: "Select a course.", aboutTitle: "ℹ️ About", aboutP1: "Educational portal.", author: "Prepared by:", timer: "Time Left:", pdf: "Download PDF", quizHeader: "📝 Quiz", finishQuiz: "Finish Quiz", footer: "OdakLab Portal" }
+                tr: { settings: "Ayarlar", home: "Ana Sayfa", courses: "Dersler", about: "Hakkında", mode: "Görünüm Modu", dark: "Karanlık Mod", light: "Aydınlık Mod", color: "Tema Rengi", lang: "Dil / Language", heroTitle: "Öğrenmek isteyen herkes için ücretsiz eğitim desteği", heroDesc: "OdakLab'ın misyonu herkese, her yerde eğitim imkânı sağlamaktır.", startTitle: "🚀 Eğitime Hemen Başlayın", startDesc: "Dersler sayfamızı inceleyin.", explore: "Dersleri İncele", catalogTitle: "📚 11. Sınıf Ders Kataloğu", catalogSub: "Çalışmak istediğiniz dersi seçebilirsiniz.", aboutTitle: "ℹ️ OdakLab Hakkında", aboutP1: "OdakLab, öğrencilerin başarılarını artırmak için geliştirilmiş eğitim portalıdır.", author: "Hazırlayan:", timer: "Kalan Süre:", pdf: "Konu Anlatımı PDF'ini İndir", quizHeader: "📝 Konu Testi", finishQuiz: "Testi Bitir", footer: "OdakLab Eğitim Portalı" },
+                en: { settings: "Settings", home: "Home", courses: "Courses", about: "About", mode: "Appearance", dark: "Dark Mode", light: "Light Mode", color: "Accent Color", lang: "Language", heroTitle: "Free education support for everyone", heroDesc: "OdakLab's mission is to provide education for everyone, everywhere.", startTitle: "🚀 Start Learning Now", startDesc: "Check out our courses page.", explore: "Explore Courses", catalogTitle: "📚 11th Grade Course Catalog", catalogSub: "Select the course module you want to study.", aboutTitle: "ℹ️ About OdakLab", aboutP1: "OdakLab is an educational portal designed to enhance student success.", author: "Prepared by:", timer: "Time Left:", pdf: "Download Lecture PDF", quizHeader: "📝 Quiz", finishQuiz: "Finish Quiz", footer: "OdakLab Educational Portal" },
+                fr: { settings: "Paramètres", home: "Accueil", courses: "Cours", about: "À propos", mode: "Mode d'affichage", dark: "Mode Sombre", light: "Mode Clair", color: "Couleur", lang: "Langue", heroTitle: "Soutien éducatif gratuit pour tous", heroDesc: "La mission d'OdakLab est d'offrir une éducation accessible à tous.", startTitle: "🚀 Commencez à apprendre", startDesc: "Découvrez notre catalogue de cours.", explore: "Explorer les cours", catalogTitle: "📚 Catalogue des cours", catalogSub: "Sélectionnez un module de cours.", aboutTitle: "ℹ️ À propos d'OdakLab", aboutP1: "OdakLab est un portail éducatif moderne.", author: "Préparé par :", timer: "Temps restant :", pdf: "Télécharger le PDF", quizHeader: "📝 Quiz", finishQuiz: "Terminer le quiz", footer: "Portail Éducatif OdakLab" },
+                es: { settings: "Ajustes", home: "Inicio", courses: "Cursos", about: "Acerca de", mode: "Modo de apariencia", dark: "Modo Oscuro", light: "Modo Claro", color: "Color", lang: "Idioma", heroTitle: "Apoyo educativo gratuito para todos", heroDesc: "La misión de OdakLab es brindar educación para todos en todas partes.", startTitle: "🚀 Comienza a aprender", startDesc: "Revisa nuestra página de cursos.", explore: "Explorar Cursos", catalogTitle: "📚 Catálogo de Cursos", catalogSub: "Selecciona el módulo que deseas estudiar.", aboutTitle: "ℹ️ Acerca de OdakLab", aboutP1: "OdakLab es un portal educativo diseñado para estudiantes.", author: "Preparado por:", timer: "Tiempo restante:", pdf: "Descargar PDF", quizHeader: "📝 Examen", finishQuiz: "Terminar Examen", footer: "Portal Educativo OdakLab" },
+                ar: { settings: "الإعدادات", home: "الرئيسية", courses: "الدورات", about: "حول", mode: "وضع العرض", dark: "الوضع الداكن", light: "الوضع الفاتح", color: "لون السمة", lang: "اللغة / Language", heroTitle: "دعم تعليمي مجاني لكل من يرغب في التعلم", heroDesc: "مهمة OdakLab هي توفير تعليم مجاني وعالي الجودة للجميع.", startTitle: "🚀 ابدأ التعلم الآن", startDesc: "تحقق من صفحة الدورات التدريبية الخاصة بنا.", explore: "استكشف الدورات", catalogTitle: "📚 كتالوج دورات الصف الحادي عشر", catalogSub: "يمكنك اختيار وحدة الدورة التي تريد دراستها.", aboutTitle: "ℹ️ حول OdakLab", aboutP1: "OdakLab هي بوابة تعليمية تم تطويرها لتعزيز نجاح الطلاب.", author: "إعداد:", timer: "الوقت المتبقي:", pdf: "تحميل ملف الشرح PDF", quizHeader: "📝 اختبار الموضوع", finishQuiz: "إنهاء الاختبار", footer: "بوابة OdakLab التعليمية" }
             };
 
             const t = translations[lang] || translations['tr'];
             const setTxt = (id, val) => { const el = document.getElementById(id); if(el && val) el.innerText = val; };
+
+            // Arapça için sağdan sola (RTL) metin yönü desteği
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
 
             setTxt('lbl-btn-settings', t.settings);
             setTxt('nav-home', `🏠 ${t.home}`);
