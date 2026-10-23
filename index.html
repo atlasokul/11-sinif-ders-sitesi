@@ -428,13 +428,6 @@
             <select id="language-select" onchange="changeLanguage(this.value)">
                 <option value="tr">Türkçe</option>
                 <option value="en">English (İngilizce)</option>
-                <option value="ar">العربية (Arapça)</option>
-                <option value="es">Español (İspanyolca)</option>
-                <option value="ku">Kurdî (Kürtçe)</option>
-                <option value="de">Deutsch (Almanca)</option>
-                <option value="fr">Français (Fransızca)</option>
-                <option value="az">Azərbaycan (Azerbaycan Türkçesi)</option>
-                <option value="hi">हिन्दी (Hintçe)</option>
             </select>
         </div>
     </div>
@@ -446,73 +439,66 @@
         <div id="home-view" class="hero-section">
             <div class="hero-content">
                 <h1 class="hero-title" id="txt-hero-title">Öğrenmek isteyen herkes için ücretsiz eğitim desteği</h1>
-                <p class="hero-desc" id="txt-hero-desc">OdakLab'ın misyonu herkese, her yerde, dünya standartlarında ve ücretsiz eğitim imkânı sağlayarak örgün eğitime destek olmaktır.</p>
+                <p class="hero-desc" id="txt-hero-desc">OdakLab'ın misyonu herkese, her yerde eğitim imkânı sağlamaktır.</p>
                 
                 <div class="hero-card-box">
                     <h3 style="margin-top: 0;" id="txt-start-title">🚀 Eğitime Hemen Başlayın</h3>
-                    <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;" id="txt-start-desc">11. sınıf müfredatındaki derslere erişmek için dersler sayfamızı inceleyin.</p>
+                    <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;" id="txt-start-desc">Dersler sayfamızı inceleyin.</p>
                     <button onclick="showCoursesPage()" style="background: var(--accent-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer;" id="btn-explore-courses">Dersleri İncele</button>
                 </div>
             </div>
             <div class="hero-image-container">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Eğitim ve Keşif Görseli">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Görsel">
             </div>
         </div>
 
-        <!-- 2. DERSLER LİSTESİ SAYFASI -->
+        <!-- 2. DERSLER LİSTESİ SAYFASI (TÜM 8 DERS) -->
         <div id="courses-view" class="hidden">
             <div style="text-align: center; margin-bottom: 20px;">
                 <h2 id="txt-catalog-title">📚 11. Sınıf Ders Kataloğu</h2>
-                <p style="color: #94a3b8;" id="txt-catalog-sub">Çalışmak istediğiniz ders modülünü seçebilirsiniz.</p>
+                <p style="color: #94a3b8;" id="txt-catalog-sub">Çalışmak istediğiniz dersi seçebilirsiniz.</p>
             </div>
 
             <div class="courses-grid">
                 <div class="course-card" onclick="loadLesson('math')">
                     <div class="course-icon">📐</div>
-                    <h3 id="c-math-t">Matematik</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-math-d">Trigonometri ve Fonksiyonlar</p>
+                    <h3>Matematik</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Trigonometri</p>
                 </div>
-
                 <div class="course-card" onclick="loadLesson('physics')">
                     <div class="course-icon">⚡</div>
-                    <h3 id="c-phys-t">Fizik</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-phys-d">Kuvvet, Vektörler ve Hareket</p>
+                    <h3>Fizik</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Kuvvet ve Hareket</p>
                 </div>
-
                 <div class="course-card" onclick="loadLesson('chemistry')">
                     <div class="course-icon">🧪</div>
-                    <h3 id="c-chem-t">Kimya</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-chem-d">Modern Atom Teorisi ve Gazlar</p>
+                    <h3>Kimya</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Modern Atom Teorisi</p>
                 </div>
-
                 <div class="course-card" onclick="loadLesson('biology')">
                     <div class="course-icon">🧬</div>
-                    <h3 id="c-bio-t">Biyoloji</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-bio-d">İnsan Fizyolojisi ve Sistemler</p>
+                    <h3>Biyoloji</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Sinir Sistemi</p>
                 </div>
-
                 <div class="course-card" onclick="loadLesson('web')">
                     <div class="course-icon">💻</div>
-                    <h3 id="c-web-t">Web Uygulama Geliştirme</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-web-d">JavaScript, DOM ve HTML5</p>
+                    <h3>Web Uygulama Geliştirme</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">HTML, CSS, JavaScript</p>
                 </div>
-
                 <div class="course-card" onclick="loadLesson('network')">
                     <div class="course-icon">🌐</div>
-                    <h3 id="c-net-t">Ağ Sistemleri ve Anahtarlama</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-net-d">VLAN, Switch ve Port Güvenliği</p>
+                    <h3>Ağ Sistemleri</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Switch ve Konfigürasyon</p>
                 </div>
-
                 <div class="course-card" onclick="loadLesson('db')">
                     <div class="course-icon">🗄️</div>
-                    <h3 id="c-db-t">Veritabanı Yönetimi</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-db-d">SQL Sorguları ve Normalizasyon</p>
+                    <h3>Veritabanı Yönetimi</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">SQL ve Tablo İşlemleri</p>
                 </div>
-
                 <div class="course-card" onclick="loadLesson('graphics')">
                     <div class="course-icon">🎨</div>
-                    <h3 id="c-gfx-t">Grafik ve Animasyon</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-gfx-d">Vektörel Çizim ve Katmanlar</p>
+                    <h3>Grafik ve Animasyon</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;">Adobe Animate Giriş</p>
                 </div>
             </div>
         </div>
@@ -521,11 +507,10 @@
         <div id="about-view" class="about-section hidden">
             <h2 id="txt-about-title">ℹ️ OdakLab Hakkında</h2>
             <p id="txt-about-p1">OdakLab, öğrencilerin başarılarını artırmak için geliştirilmiş eğitim portalıdır.</p>
-            <p id="txt-about-p2">Bu platform; modern web teknolojileri kullanılarak 11. sınıf müfredatına uygun olarak tasarlanmıştır.</p>
             <p><strong id="txt-author-lbl">Hazırlayan:</strong> Atlas Özdemir</p>
         </div>
 
-        <!-- 4. DERS İÇERİK GÖRÜNÜMÜ (VİDEO + QUIZ) -->
+        <!-- 4. DERS İÇERİK GÖRÜNÜMÜ -->
         <div id="lesson-view" class="hidden">
             <div class="header-bar">
                 <h2 id="txt-course-title" style="margin: 0; font-size: 1.2rem;">📚 Ders Başlığı</h2>
@@ -554,83 +539,82 @@
         </div>
 
         <footer>
-            <p id="txt-footer-about"><strong>OdakLab Eğitim Portalı</strong> — Geleceğin Eğitim Teknolojileri</p>
+            <p id="txt-footer-about"><strong>OdakLab Eğitim Portalı</strong></p>
         </footer>
-
     </div>
 
-    <!-- JavaScript Yapısı -->
+    <!-- JavaScript Veri ve Fonksiyonlar -->
     <script>
         const lessonsData = {
             math: {
-                title: "📐 11. Sınıf Matematik: Trigonometri ve Fonksiyonlar",
+                title: "📐 11. Sınıf Matematik: Trigonometri",
                 video: "https://www.youtube.com/embed/ZMHJ_kG5ID0",
-                pdf: "docs/Matematik_Trigonometri_Notlari.pdf",
-                answers: { q1: 'A', q2: 'B', q3: 'A', q4: 'C', q5: 'B' },
+                pdf: "docs/Matematik_Notlari.pdf",
+                answers: { q1: 'A', q2: 'B', q3: 'A', q4: 'C', q5: 'A' },
                 questions: [
-                    { id: 'q1', text: "1. Birim çember üzerinde bir P(x, y) noktasının x koordinatı (apsisi) neyi ifade eder?", options: { A: "Kosinüs", B: "Sinüs", C: "Tanjant", D: "Kotanjant" } },
-                    { id: 'q2', text: "2. Aşağıdakilerden hangisi sinüs ve kosinüs fonksiyonlarının alabileceği en büyük değerdir?", options: { A: "0", B: "1", C: "2", D: "Sonsuz" } },
-                    { id: 'q3', text: "3. Aynı açının sinüs ve kosinüs karelerinin toplamı (sin²α + cos²α) her zaman kaç eşittir?", options: { A: "1", B: "0", C: "-1", D: "2" } },
-                    { id: 'q4', text: "4. f(x) = 3sinx - 4cosx ifadesinin alabileceği en büyük değer kaçtır?", options: { A: "3", B: "4", C: "5", D: "7" } },
-                    { id: 'q5', text: "5. Aşağıdakilerden hangisi küresel simetri özelliği gösteren bir orbital sonlandırmasıdır?", options: { A: "p²", B: "p³", C: "p⁴", D: "p⁵" } }
+                    { id: 'q1', text: "1. Birim çemberde P(x, y) noktasının apsisi neyi ifade eder?", options: { A: "Kosinüs", B: "Sinüs", C: "Tanjant", D: "Kotanjant" } },
+                    { id: 'q2', text: "2. Sinüs fonksiyonunun alabileceği en büyük değer kaçtır?", options: { A: "0", B: "1", C: "2", D: "Sonsuz" } },
+                    { id: 'q3', text: "3. sin²α + cos²α toplamı kaçtır?", options: { A: "1", B: "0", C: "-1", D: "2" } },
+                    { id: 'q4', text: "4. f(x) = 3sinx - 4cosx ifadesinin en büyük değeri kaçtır?", options: { A: "3", B: "4", C: "5", D: "7" } },
+                    { id: 'q5', text: "5. Trigonometrik oranlar hangi geometrik şekil üzerinde tanımlanır?", options: { A: "Birim Çember", B: "Kare", C: "Dikdörtgen", D: "Paralelkenar" } }
                 ]
             },
             physics: {
-                title: "⚡ 11. Sınıf Fizik: Kuvvet ve Hareket (Serbest Düşme)",
+                title: "⚡ 11. Sınıf Fizik: Kuvvet ve Hareket",
                 video: "https://www.youtube.com/embed/zPrIQSKBLgM",
-                pdf: "docs/Fizik_Serbest_Dusme_Notlari.pdf",
+                pdf: "docs/Fizik_Notlari.pdf",
                 answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
                 questions: [
-                    { id: 'q1', text: "1. Hava direncinden arındırılmış (vakum) bir ortamda, serbest bırakılan farklı kütleli iki cisim için ne söylenebilir?", options: { A: "Ağır olan önce düşer", B: "Aynı anda yere düşerler", C: "Hafif olan önce düşer", D: "Kütleye bağlı olarak hızlanırlar" } },
-                    { id: 'q2', text: "2. Serbest düşen bir cismin hızı her saniye yaklaşık ne kadar artar?", options: { A: "10 m/s", B: "5 m/s", C: "9.8 m/s²", D: "20 m/s" } },
-                    { id: 'q3', text: "3. Serbest bırakılan bir cismin ilk 3 saniyede aldığı toplam yol kaç metredir? (g = 10 m/s²)", options: { A: "20 m", B: "30 m", C: "45 m", D: "80 m" } },
-                    { id: 'q4', text: "4. Atış hareketlerinde ivme-zaman grafiği aşağıdakilerden hangisini gösterir?", options: { A: "Sıfır", B: "Sabit -10 m/s²", C: "Zamanla artan", D: "Sinüzoidal" } },
-                    { id: 'q5', text: "5. Serbest düşmede h = 1/2 gt² formülünde g yerine 10 alındığında yol formülü aşağıdakilerden hangisi olur?", options: { A: "h = 5t²", B: "h = 10t²", C: "h = 5t", D: "h = t² / 5" } }
+                    { id: 'q1', text: "1. Vakum ortamda farklı kütleli iki cisim nasıl düşer?", options: { A: "Ağır olan önce", B: "Aynı anda", C: "Hafif olan önce", D: "Rastgele" } },
+                    { id: 'q2', text: "2. Serbest düşmede hız her saniye ne kadar artar?", options: { A: "10 m/s", B: "5 m/s", C: "2 m/s", D: "20 m/s" } },
+                    { id: 'q3', text: "3. İlk 3 saniyede alınan toplam yol kaç metredir?", options: { A: "20", B: "30", C: "45", D: "80" } },
+                    { id: 'q4', text: "4. Atışlarda ivme-zaman grafiği nasıldır?", options: { A: "Sıfır", B: "Sabit -10", C: "Artan", D: "Azalan" } },
+                    { id: 'q5', text: "5. Serbest düşme formülü nedir?", options: { A: "h = 5t²", B: "h = 10t", C: "h = gt", D: "h = vt" } }
                 ]
             },
             chemistry: {
                 title: "🧪 11. Sınıf Kimya: Modern Atom Teorisi",
                 video: "https://www.youtube.com/embed/OOmdF09OL0o",
-                pdf: "docs/Kimya_Modern_Atom_Notlari.pdf",
+                pdf: "docs/Kimya_Notlari.pdf",
                 answers: { q1: 'A', q2: 'C', q3: 'B', q4: 'A', q5: 'D' },
                 questions: [
-                    { id: 'q1', text: "1. Heisenberg Belirsizlik İlkesi'ne göre aşağıdakilerden hangisi aynı anda hassasiyetle belirlenemez?", options: { A: "Elektronun yeri ve hızı", B: "Proton ve nötron sayısı", C: "Kütle numarası ve atom numarası", D: "Enerji seviyesi ve spin" } },
-                    { id: 'q2', text: "2. Baş kuantum sayısı (n) n = 3 olan bir enerji düzeyinde en fazla kaç orbital bulunabilir?", options: { A: "3", B: "6", C: "9", D: "18" } },
-                    { id: 'q3', text: "3. d orbitalinin alabileceği maksimum elektron sayısı kaçtır?", options: { A: "6", B: "10", C: "14", D: "2" } },
-                    { id: 'q4', text: "4. Aşağıdaki orbital türlerinden hangisi tüm ana enerji düzeylerinde mutlaka bulunur?", options: { A: "s", B: "p", C: "d", D: "f" } },
-                    { id: 'q5', text: "5. Elektron dizilimi s² d⁴ ile biten bir atom, kararlılık kazanmak için hangi duruma dönüşür?", options: { A: "s² d⁵", B: "s¹ d⁴", C: "s² d³", D: "s¹ d⁵" } }
+                    { id: 'q1', text: "1. Heisenberg ilkesine göre ne aynı anda belirlenemez?", options: { A: "Yer ve hız", B: "Proton ve nötron", C: "Kütle ve hacim", D: "Atom no ve kütle no" } },
+                    { id: 'q2', text: "2. n=3 düzeyinde en fazla kaç orbital bulunabilir?", options: { A: "3", B: "6", C: "9", D: "18" } },
+                    { id: 'q3', text: "3. d orbitali maksimum kaç elektron alır?", options: { A: "6", B: "10", C: "14", D: "2" } },
+                    { id: 'q4', text: "4. Hangi orbital tüm enerji düzeylerinde bulunur?", options: { A: "s", B: "p", C: "d", D: "f" } },
+                    { id: 'q5', text: "5. s² d⁴ yapısı kararlılık için neye dönüşür?", options: { A: "s² d⁵", B: "s¹ d⁴", C: "s² d³", D: "s¹ d⁵" } }
                 ]
             },
             biology: {
                 title: "🧬 11. Sınıf Biyoloji: Sinir Sistemi",
                 video: "https://www.youtube.com/embed/CQXOfVZX_hI",
-                pdf: "docs/Biyoloji_Sinir_Sistemi_Notlari.pdf",
+                pdf: "docs/Biyoloji_Notlari.pdf",
                 answers: { q1: 'A', q2: 'C', q3: 'B', q4: 'A', q5: 'C' },
                 questions: [
-                    { id: 'q1', text: "1. Sinir dokunun temel elemanı olan hücre nedir?", options: { A: "Nöron", B: "Glia", C: "Nefron", D: "Alveol" } },
-                    { id: 'q2', text: "2. Olgun bir insan nöronunda hangi organelin olmaması nedeniyle bölünme gerçekleşmez?", options: { A: "Mitokondri", B: "Ribozom", C: "Sentrozom", D: "Endoplazmik Retikulum" } },
-                    { id: 'q3', text: "3. Merkezi sinir sisteminde miyelin kılıf üreten glia hücresi hangisidir?", options: { A: "Şuan hücresi", B: "Oligodendrosit", C: "Astrosit", D: "Mikroglia" } },
-                    { id: 'q4', text: "4. Uyarıyı duyu organından alıp merkeze taşıyan nöron türü nedir?", options: { A: "Duyu nöronu", B: "Ara nöron", C: "Motor nöron", D: "Efektör" } },
-                    { id: 'q5', text: "5. Lokal anestezi uygulanırken öncelikle hangi nöronun işlevi engellenir?", options: { A: "Motor nöron", B: "Ara nöron", C: "Duyu nöronu", D: "Sinaps" } }
+                    { id: 'q1', text: "1. Sinir dokunun temel hücre elemanı nedir?", options: { A: "Nöron", B: "Glia", C: "Nefron", D: "Alveol" } },
+                    { id: 'q2', text: "2. Nöronda hangi organel eksik olduğu için bölünemez?", options: { A: "Mitokondri", B: "Ribozom", C: "Sentrozom", D: "ER" } },
+                    { id: 'q3', text: "3. Merkezi sistemde miyelin üreten glia hangisidir?", options: { A: "Şuan", B: "Oligodendrosit", C: "Astrosit", D: "Mikroglia" } },
+                    { id: 'q4', text: "4. Uyarıyı merkeze taşıyan nöron hangisidir?", options: { A: "Duyu nöronu", B: "Ara nöron", C: "Motor nöron", D: "Efektör" } },
+                    { id: 'q5', text: "5. Lokal anestezide ilk ne engellenir?", options: { A: "Motor nöron", B: "Ara nöron", C: "Duyu nöronu", D: "Sinaps" } }
                 ]
             },
             web: {
-                title: "💻 Web Uygulama Geliştirme: HTML, CSS ve JavaScript",
+                title: "💻 Web Uygulama Geliştirme",
                 video: "https://www.youtube.com/embed/Y86zzWRle3g",
-                pdf: "docs/Web_Tasarim_Notlari.pdf",
+                pdf: "docs/Web_Notlari.pdf",
                 answers: { q1: 'A', q2: 'B', q3: 'C', q4: 'A', q5: 'B' },
                 questions: [
                     { id: 'q1', text: "1. Web sitesinin iskeletini oluşturan dil hangisidir?", options: { A: "HTML", B: "CSS", C: "JavaScript", D: "SQL" } },
-                    { id: 'q2', text: "2. Web sitesine stil ve tasarım kazandıran dil hangisidir?", options: { A: "HTML", B: "CSS", C: "Bootstrap", D: "jQuery" } },
-                    { id: 'q3', text: "3. Hazır tasarım bileşenleri sunan kütüphane hangisidir?", options: { A: "React", B: "Node.js", C: "Bootstrap", D: "MongoDB" } },
+                    { id: 'q2', text: "2. Web sitesine stil kazandıran dil hangisidir?", options: { A: "HTML", B: "CSS", C: "Bootstrap", D: "jQuery" } },
+                    { id: 'q3', text: "3. Hazır tasarım bileşenleri sunan kütüphane nedir?", options: { A: "React", B: "Node.js", C: "Bootstrap", D: "MongoDB" } },
                     { id: 'q4', text: "4. Sayfalara dinamiklik katan dil hangisidir?", options: { A: "JavaScript", B: "HTML", C: "CSS", D: "SQL" } },
                     { id: 'q5', text: "5. Hızlı DOM manipülasyonu sağlayan JS kütüphanesi nedir?", options: { A: "Angular", B: "jQuery", C: "Vue", D: "Bootstrap" } }
                 ]
             },
             network: {
-                title: "🌐 Ağ Sistemleri ve Anahtarlama: Switch ve Konfigürasyon",
+                title: "🌐 Ağ Sistemleri ve Anahtarlama",
                 video: "https://www.youtube.com/embed/wwdl0KdFzkI",
-                pdf: "docs/Ag_Sistemleri_Notlari.pdf",
+                pdf: "docs/Ag_Notlari.pdf",
                 answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
                 questions: [
                     { id: 'q1', text: "1. Switch konfigürasyonuna hangi modda başlanır?", options: { A: "User Exec", B: "Privileged / Global Config", C: "ROM Mon", D: "VLAN DB" } },
@@ -641,10 +625,10 @@
                 ]
             },
             db: {
-                title: "🗄️ Veritabanı Yönetimi: SQL ve Tablo İşlemleri",
+                title: "🗄️ Veritabanı Yönetimi",
                 video: "https://www.youtube.com/embed/cKmlC8f0jZM",
-                pdf: "docs/Veritabani_Yonetimi_Notlari.pdf",
-                answers: { q1: 'A', q2: 'B', q3: 'C', q4: 'A', q5: 'B' },
+                pdf: "docs/Veritabani_Notlari.pdf",
+                answers: { q1: 'A', q2: 'A', q3: 'C', q4: 'A', q5: 'B' },
                 questions: [
                     { id: 'q1', text: "1. Yeni tablo oluşturma komutu nedir?", options: { A: "CREATE TABLE", B: "INSERT INTO", C: "SELECT FROM", D: "ALTER TABLE" } },
                     { id: 'q2', text: "2. Tablodaki verileri listelemek için ne kullanılır?", options: { A: "SELECT * FROM", B: "CREATE TABLE", C: "DROP TABLE", D: "UPDATE" } },
@@ -654,9 +638,9 @@
                 ]
             },
             graphics: {
-                title: "🎨 Grafik ve Animasyon: Adobe Animate Giriş",
+                title: "🎨 Grafik ve Animasyon",
                 video: "https://www.youtube.com/embed/gLoBKx5QNG4",
-                pdf: "docs/Grafik_Animasyon_Notlari.pdf",
+                pdf: "docs/Grafik_Notlari.pdf",
                 answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
                 questions: [
                     { id: 'q1', text: "1. Adobe Animate'in eski adı nedir?", options: { A: "Photoshop", B: "Flash", C: "Illustrator", D: "Premiere" } },
@@ -799,7 +783,7 @@
             } else {
                 resultDiv.style.background = '#991b1b';
                 resultDiv.style.color = '#fee2e2';
-                resultDiv.innerText = `❌ Test Bitti. Doğru Sayısı: ${correctCount} / ${total}. Konuyu tekrar edebilirsiniz.`;
+                resultDiv.innerText = `❌ Test Bitti. Doğru Sayısı: ${correctCount} / ${total}.`;
             }
         }
 
