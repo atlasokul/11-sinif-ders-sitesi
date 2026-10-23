@@ -330,3 +330,543 @@
             margin-top: 15px;
             background: #10b981;
             color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-sizing: border-box;
+            transition: background 0.2s;
+        }
+
+        .pdf-download-btn:hover {
+            background: #059669;
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 6px 0;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navigasyon Barı -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="menu-btn" onclick="toggleSidebar()">☰ <span id="lbl-btn-settings">Ayarlar</span></button>
+            <div class="brand-container">
+                <img src="logo.png" alt="Logo" class="site-logo">
+                <span class="site-title">OdakLab</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a class="nav-link active" onclick="showHomePage()" id="nav-home">🏠 Ana Sayfa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="showCoursesPage()" id="nav-courses">📚 Dersler</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="showAboutPage()" id="nav-about">ℹ️ Hakkında</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Sol Yan Menü (Ayarlar Sidebar) -->
+    <div id="settings-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3 id="txt-sidebar-title" style="margin:0;">⚙️ Tema ve Ayarlar</h3>
+            <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <div class="setting-group">
+            <label id="lbl-mode">Görünüm Modu:</label>
+            <select id="theme-mode" onchange="changeThemeMode(this.value)">
+                <option value="dark" id="opt-dark">Karanlık Mod</option>
+                <option value="light" id="opt-light">Aydınlık Mod</option>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label id="lbl-color">Tema Rengi:</label>
+            <div class="color-palette">
+                <button class="color-btn" style="background: #2563eb;" onclick="changeAccentColor('#2563eb')" title="Mavi"></button>
+                <button class="color-btn" style="background: #ec4899;" onclick="changeAccentColor('#ec4899')" title="Pembe"></button>
+                <button class="color-btn" style="background: #8b5cf6;" onclick="changeAccentColor('#8b5cf6')" title="Mor"></button>
+                <button class="color-btn" style="background: #111827;" onclick="changeAccentColor('#111827')" title="Siyah"></button>
+                <button class="color-btn" style="background: #059669;" onclick="changeAccentColor('#059669')" title="Yeşil"></button>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label id="lbl-language">Dil / Language:</label>
+            <select id="language-select" onchange="changeLanguage(this.value)">
+                <option value="tr">Türkçe</option>
+                <option value="en">English (İngilizce)</option>
+                <option value="ar">العربية (Arapça)</option>
+                <option value="es">Español (İspanyolca)</option>
+                <option value="ku">Kurdî (Kürtçe)</option>
+                <option value="de">Deutsch (Almanca)</option>
+                <option value="fr">Français (Fransızca)</option>
+                <option value="az">Azərbaycan (Azerbaycan Türkçesi)</option>
+                <option value="hi">हिन्दी (Hintçe)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Ana İçerik Konteyneri -->
+    <div class="container">
+        
+        <!-- 1. ANA SAYFA GÖRÜNÜMÜ -->
+        <div id="home-view" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title" id="txt-hero-title">Öğrenmek isteyen herkes için ücretsiz eğitim desteği</h1>
+                <p class="hero-desc" id="txt-hero-desc">OdakLab'ın misyonu herkese, her yerde, dünya standartlarında ve ücretsiz eğitim imkânı sağlayarak örgün eğitime; tüm öğrenci, öğretmen ve velilere destek olmaktır.</p>
+                
+                <div class="hero-card-box">
+                    <h3 style="margin-top: 0;" id="txt-start-title">🚀 Eğitime Hemen Başlayın</h3>
+                    <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;" id="txt-start-desc">11. sınıf müfredatındaki derslere erişmek, konu videolarını izlemek ve test çözmek için dersler sayfamızı inceleyin.</p>
+                    <button onclick="showCoursesPage()" style="background: var(--accent-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer;" id="btn-explore-courses">Dersleri İncele</button>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Eğitim ve Keşif Görseli">
+            </div>
+        </div>
+
+        <!-- 2. DERSLER LİSTESİ SAYFASI -->
+        <div id="courses-view" class="hidden">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 id="txt-catalog-title">📚 11. Sınıf Ders Kataloğu</h2>
+                <p style="color: #94a3b8;" id="txt-catalog-sub">Çalışmak istediğiniz ders modülünü seçerek video ve test alanına geçebilirsiniz.</p>
+            </div>
+
+            <div class="courses-grid">
+                <div class="course-card" onclick="loadLesson('math')">
+                    <div class="course-icon">📐</div>
+                    <h3 id="c-math-t">Matematik</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-math-d">Trigonometri ve Fonksiyonlar</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('physics')">
+                    <div class="course-icon">⚡</div>
+                    <h3 id="c-phys-t">Fizik</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-phys-d">Kuvvet, Vektörler ve Hareket</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('chemistry')">
+                    <div class="course-icon">🧪</div>
+                    <h3 id="c-chem-t">Kimya</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-chem-d">Modern Atom Teorisi ve Gazlar</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('biology')">
+                    <div class="course-icon">🧬</div>
+                    <h3 id="c-bio-t">Biyoloji</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-bio-d">İnsan Fizyolojisi ve Sistemler</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('web')">
+                    <div class="course-icon">💻</div>
+                    <h3 id="c-web-t">Web Uygulama Geliştirme</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-web-d">JavaScript, DOM ve HTML5</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('network')">
+                    <div class="course-icon">🌐</div>
+                    <h3 id="c-net-t">Ağ Sistemleri ve Anahtarlama</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-net-d">VLAN, Switch ve Port Güvenliği</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('db')">
+                    <div class="course-icon">🗄️</div>
+                    <h3 id="c-db-t">Veritabanı Yönetimi</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-db-d">SQL Sorguları ve Normalizasyon</p>
+                </div>
+
+                <div class="course-card" onclick="loadLesson('graphics')">
+                    <div class="course-icon">🎨</div>
+                    <h3 id="c-gfx-t">Grafik ve Animasyon</h3>
+                    <p style="font-size: 0.85rem; color: #94a3b8;" id="c-gfx-d">Vektörel Çizim ve Katmanlar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. HAKKINDA SAYFASI -->
+        <div id="about-view" class="about-section hidden">
+            <h2 id="txt-about-title">ℹ️ OdakLab Hakkında</h2>
+            <p id="txt-about-p1">OdakLab, öğrencilerin mesleki ve akademik derslerde başarılarını artırmak, konuları interaktif video ve testlerle pekiştirmelerini sağlamak amacıyla geliştirilmiş yenilikçi bir eğitim portalıdır.</p>
+            <p id="txt-about-p2">Bu platform; modern web teknolojileri kullanılarak 11. sınıf müfredatına uygun olarak tasarlanmıştır. İstediğiniz dersi seçebilir, konu anlatımlı PDF'leri indirebilir ve 7 dakikalık mini testlerle kendinizi test edebilirsiniz.</p>
+            <p><strong id="txt-author-lbl">Hazırlayan:</strong> Atlas Özdemir</p>
+        </div>
+
+        <!-- 4. DERS İÇERİK GÖRÜNÜMÜ (VİDEO + QUIZ) -->
+        <div id="lesson-view" class="hidden">
+            <!-- Üst Başlık ve Sayaç Barı -->
+            <div class="header-bar">
+                <h2 id="txt-course-title" style="margin: 0; font-size: 1.2rem;">📚 Ders Başlığı</h2>
+                <div class="timer-badge">
+                    ⏱️ <span id="txt-timer-label">Kalan Süre:</span> <span id="timer">07:00</span>
+                </div>
+            </div>
+
+            <div class="main-grid">
+                <!-- Video Alanı ve PDF İndirme Butonu -->
+                <div class="card">
+                    <div class="video-wrapper">
+                        <iframe id="lesson-iframe" src="" title="Ders Videosu" allowfullscreen></iframe>
+                    </div>
+                    <!-- Konu Anlatımı PDF İndirme Linki -->
+                    <a id="btn-pdf-download" href="#" download class="pdf-download-btn">
+                        📄 <span id="txt-pdf-label">Konu Anlatımı PDF'ini İndir</span>
+                    </a>
+                </div>
+
+                <!-- Quiz Alanı -->
+                <div class="card">
+                    <h3 id="txt-quiz-header" style="margin-top:0; border-bottom: 2px solid var(--accent-color); padding-bottom: 8px;">📝 Konu Testi</h3>
+                    <form id="quiz-form" style="display: flex; flex-direction: column; gap: 12px;"></form>
+                    <button type="button" id="btn-finish-quiz" onclick="checkQuiz()" class="btn-submit">Testi Bitir</button>
+                    <div id="quiz-result" class="hidden" style="margin-top: 12px; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alt Bilgi (Footer) -->
+        <footer>
+            <p id="txt-footer-about"><strong>OdakLab Eğitim Portalı</strong> — Geleceğin Eğitim Teknolojileri</p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Yapısı -->
+    <script>
+        const lessonsData = {
+            math: {
+                title: "📐 11. Sınıf Matematik: Trigonometri ve Fonksiyonlar",
+                video: "https://www.youtube.com/embed/ZMHJ_kG5ID0",
+                pdf: "docs/Matematik_Trigonometri_Notlari.pdf",
+                answers: { q1: 'A', q2: 'B', q3: 'A', q4: 'C', q5: 'B' },
+                questions: [
+                    { id: 'q1', text: "1. Birim çember üzerinde bir P(x, y) noktasının x koordinatı (apsisi) neyi ifade eder?", options: { A: "Kosinüs", B: "Sinüs", C: "Tanjant", D: "Kotanjant" } },
+                    { id: 'q2', text: "2. Aşağıdakilerden hangisi sinüs ve kosinüs fonksiyonlarının alabileceği en büyük değerdir?", options: { A: "0", B: "1", C: "2", D: "Sonsuz" } },
+                    { id: 'q3', text: "3. Aynı açının sinüs ve kosinüs karelerinin toplamı (sin²α + cos²α) her zaman kaç eşittir?", options: { A: "1", B: "0", C: "-1", D: "2" } },
+                    { id: 'q4', text: "4. f(x) = 3sinx - 4cosx ifadesinin alabileceği en büyük değer kaçtır?", options: { A: "3", B: "4", C: "5", D: "7" } },
+                    { id: 'q5', text: "5. Aşağıdakilerden hangisi küresel simetri özelliği gösteren bir orbital sonlandırmasıdır?", options: { A: "p²", B: "p³", C: "p⁴", D: "p⁵" } }
+                ]
+            },
+            physics: {
+                title: "⚡ 11. Sınıf Fizik: Kuvvet ve Hareket (Serbest Düşme)",
+                video: "https://www.youtube.com/embed/zPrIQSKBLgM",
+                pdf: "docs/Fizik_Serbest_Dusme_Notlari.pdf",
+                answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
+                questions: [
+                    { id: 'q1', text: "1. Hava direncinden arındırılmış (vakum) bir ortamda, serbest bırakılan farklı kütleli iki cisim için ne söylenebilir?", options: { A: "Ağır olan önce düşer", B: "Aynı anda yere düşerler", C: "Hafif olan önce düşer", D: "Kütleye bağlı olarak hızlanırlar" } },
+                    { id: 'q2', text: "2. Serbest düşen bir cismin hızı her saniye yaklaşık ne kadar artar?", options: { A: "10 m/s", B: "5 m/s", C: "9.8 m/s²", D: "20 m/s" } },
+                    { id: 'q3', text: "3. Serbest bırakılan bir cismin ilk 3 saniyede aldığı toplam yol kaç metredir? (g = 10 m/s²)", options: { A: "20 m", B: "30 m", C: "45 m", D: "80 m" } },
+                    { id: 'q4', text: "4. Atış hareketlerinde ivme-zaman grafiği aşağıdakilerden hangisini gösterir?", options: { A: "Sıfır", B: "Sabit -10 m/s²", C: "Zamanla artan", D: "Sinüzoidal" } },
+                    { id: 'q5', text: "5. Serbest düşmede h = 1/2 gt² formülünde g yerine 10 alındığında yol formülü aşağıdakilerden hangisi olur?", options: { A: "h = 5t²", B: "h = 10t²", C: "h = 5t", D: "h = t² / 5" } }
+                ]
+            },
+            chemistry: {
+                title: "🧪 11. Sınıf Kimya: Modern Atom Teorisi",
+                video: "https://www.youtube.com/embed/OOmdF09OL0o",
+                pdf: "docs/Kimya_Modern_Atom_Notlari.pdf",
+                answers: { q1: 'A', q2: 'C', q3: 'B', q4: 'A', q5: 'D' },
+                questions: [
+                    { id: 'q1', text: "1. Heisenberg Belirsizlik İlkesi'ne göre aşağıdakilerden hangisi aynı anda hassasiyetle belirlenemez?", options: { A: "Elektronun yeri ve hızı", B: "Proton ve nötron sayısı", C: "Kütle numarası ve atom numarası", D: "Enerji seviyesi ve spin" } },
+                    { id: 'q2', text: "2. Baş kuantum sayısı (n) n = 3 olan bir enerji düzeyinde en fazla kaç orbital bulunabilir? (n² formülü)", options: { A: "3", B: "6", C: "9", D: "18" } },
+                    { id: 'q3', text: "3. d orbitalinin alabileceği maksimum elektron sayısı kaçtır?", options: { A: "6", B: "10", C: "14", D: "2" } },
+                    { id: 'q4', text: "4. Aşağıdaki orbital türlerinden hangisi tüm ana enerji düzeylerinde (n=1, 2, 3...) mutlaka bulunur?", options: { A: "s", B: "p", C: "d", D: "f" } },
+                    { id: 'q5', text: "5. Elektron dizilimi s² d⁴ ile biten bir atom, kararlılık kazanmak için aşağıdaki durumlardan hangisine dönüşür?", options: { A: "s² d⁵", B: "s¹ d⁴", C: "s² d³", D: "s¹ d⁵" } }
+                ]
+            },
+            biology: {
+                title: "🧬 11. Sınıf Biyoloji: Sinir Sistemi",
+                video: "https://www.youtube.com/embed/CQXOfVZX_hI",
+                pdf: "docs/Biyoloji_Sinir_Sistemi_Notlari.pdf",
+                answers: { q1: 'A', q2: 'C', q3: 'B', q4: 'A', q5: 'C' },
+                questions: [
+                    { id: 'q1', text: "1. Aşağıdakilerden hangisi sinir dokunun temel elemanlarından olup impuls iletimini sağlayan hücredir?", options: { A: "Nöron", B: "Glia", C: "Nefron", D: "Alveol" } },
+                    { id: 'q2', text: "2. Olgun bir insan nöronunda hangi organelin bulunmadığı için hücre bölünmesi gerçekleşemez?", options: { A: "Mitokondri", B: "Ribozom", C: "Sentrozom", D: "Endoplazmik Retikulum" } },
+                    { id: 'q3', text: "3. Merkezi sinir sisteminde (beyin ve omurilik) miyelin kılıf üreten glia hücresi aşağıdakilerden hangisidir?", options: { A: "Şuan hücresi", B: "Oligodendrosit", C: "Astrosit", D: "Mikroglia" } },
+                    { id: 'q4', text: "4. Uyarıyı duyu organlarından alıp merkezi sinir sistemine taşıyan nöron türü aşağıdakilerden hangisidir?", options: { A: "Duyu nöronu", B: "Ara nöron", C: "Motor nöron", D: "Efektör nöron" } },
+                    { id: 'q5', text: "5. Lokal anestezi uygulanması durumunda sinir sisteminde öncelikli olarak hangi yapının işlevi engellenir?", options: { A: "Motor nöron", B: "Ara nöron", C: "Duyu nöronu", D: "Sinaps boşluğu" } }
+                ]
+            },
+            web: {
+                title: "💻 Web Uygulama Geliştirme: HTML, CSS ve JavaScript",
+                video: "https://www.youtube.com/embed/Y86zzWRle3g",
+                pdf: "docs/Web_Tasarim_Notlari.pdf",
+                answers: { q1: 'A', q2: 'B', q3: 'C', q4: 'A', q5: 'B' },
+                questions: [
+                    { id: 'q1', text: "1. Web sitesinin iskeletini ve temel yapı taşlarını oluşturan dil aşağıdakilerden hangisidir?", options: { A: "HTML", B: "CSS", C: "JavaScript", D: "SQL" } },
+                    { id: 'q2', text: "2. Web sitesine stil, renk, tasarım ve estetik kazandıran teknoloji hangisidir?", options: { A: "HTML", B: "CSS", C: "Bootstrap", D: "jQuery" } },
+                    { id: 'q3', text: "3. Hazır şablon, buton ve tasarım bileşenleri sunarak web geliştirme sürecini hızlandıran popüler kütüphane nedir?", options: { A: "React", B: "Node.js", C: "Bootstrap", D: "MongoDB" } },
+                    { id: 'q4', text: "4. Web sayfalarına dinamiklik, kullanıcı etkileşimi ve mantıksal işlemler katmak için kullanılan programlama dili hangisidir?", options: { A: "JavaScript", B: "HTML", C: "CSS", D: "SQL" } },
+                    { id: 'q5', text: "5. JavaScript tabanlı, daha az kodla hızlı DOM manipülasyonu yapmayı sağlayan kütüphane hangisidir?", options: { A: "Angular", B: "jQuery", C: "Vue", D: "Bootstrap" } }
+                ]
+            },
+            network: {
+                title: "🌐 Ağ Sistemleri ve Anahtarlama: Switch ve Konfigürasyon",
+                video: "https://www.youtube.com/embed/wwdl0KdFzkI",
+                pdf: "docs/Ag_Sistemleri_Notlari.pdf",
+                answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
+                questions: [
+                    { id: 'q1', text: "1. Switch (Anahtar) cihazlarının temel konfigürasyon işlemlerine hangi modda başlanır?", options: { A: "User Exec Mode", B: "Privileged Exec / Global Configuration Mode", C: "ROM Monitor Mode", D: "VLAN Database Mode" } },
+                    { id: 'q2', text: "2. Switch üzerinde şifreleme işlemlerinde şifrenin düz metin olarak görünmesini engelleyerek daha güvenli olmasını sağlayan komut nedir?", options: { A: "enable secret", B: "enable password", C: "line con 0", D: "banner motd" } },
+                    { id: 'q3', text: "3. Switch'e uzaktan Telnet veya SSH ile bağlanabilmek için hangi arayüz yapılandırılır?", options: { A: "FastEthernet", B: "Console", C: "vty (Virtual Terminal)", D: "Loopback" } },
+                    { id: 'q4', text: "4. Ağdaki cihazların IP adreslerini otomatik olarak dağıtmak için switch veya router üzerinde hangi servis yapılandırılır?", options: { A: "DNS", B: "DHCP", C: "FTP", D: "SMTP" } },
+                    { id: 'q5', text: "5. Cisco Packet Tracer'da komşu cihazları ve port bağlantılarını gösteren keşif protokolü hangisidir?", options: { A: "CDP (Cisco Discovery Protocol)", B: "ARP", C: "ICMP", D: "HTTP" } }
+                ]
+            },
+            db: {
+                title: "🗄️ Veritabanı Yönetimi: SQL ve Tablo İşlemleri",
+                video: "https://www.youtube.com/embed/cKmlC8f0jZM",
+                pdf: "docs/Veritabani_Yonetimi_Notlari.pdf",
+                answers: { q1: 'A', q2: 'B', q3: 'C', q4: 'A', q5: 'B' },
+                questions: [
+                    { id: 'q1', text: "1. Bir veritabanında yeni bir tablo oluşturmak için hangi SQL komutu kullanılır?", options: { A: "CREATE TABLE", B: "INSERT INTO", C: "SELECT FROM", D: "ALTER TABLE" } },
+                    { id: 'q2', text: "2. Tablodaki tüm sütun ve satır verilerini listelemek için kullanılan temel sorgu ifadesi aşağıdakilerden hangisidir?", options: { A: "SELECT * FROM tablo_adi", B: "CREATE TABLE tablo_adi", C: "DROP TABLE tablo_adi", D: "UPDATE tablo_adi" } },
+                    { id: 'q3', text: "3. Değişken uzunluklu karakter verilerini (metinleri) saklamak için kullanılan veri türü hangisidir?", options: { A: "NUMBER", B: "DATE", C: "VARCHAR / VARCHAR2", D: "INTEGER" } },
+                    { id: 'q4', text: "4. Ondalıklı veya tam sayısal ifadeleri tutmak için kullanılan SQL veri türü nedir?", options: { A: "NUMBER", B: "CHAR", C: "VARCHAR", D: "DATE" } },
+                    { id: 'q5', text: "5. Tarih ve zaman bilgilerini saklamak için en uygun SQL veri türü hangisidir?", options: { A: "NUMBER", B: "DATE", C: "VARCHAR", D: "CHAR" } }
+                ]
+            },
+            graphics: {
+                title: "🎨 Grafik ve Animasyon: Adobe Animate Giriş",
+                video: "https://www.youtube.com/embed/gLoBKx5QNG4",
+                pdf: "docs/Grafik_Animasyon_Notlari.pdf",
+                answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
+                questions: [
+                    { id: 'q1', text: "1. Adobe Animate programının eski adı ve temel devamı niteliğinde olduğu yazılım hangisidir?", options: { A: "Adobe Photoshop", B: "Adobe Flash", C: "Adobe Illustrator", D: "Adobe Premiere" } },
+                    { id: 'q2', text: "2. Adobe Animate ile hazırlanan animasyonları harici bir oynatıcıya gerek kalmadan doğrudan tarayıcıda çalıştırmayı sağlayan platform türü nedir?", options: { A: "HTML5 Canvas", B: "ActionScript 2.0", C: "Silverlight", D: "Flash Player" } },
+                    { id: 'q3', text: "3. Adobe Animate çalışma alanında çizimlerin ve nesnelerin yerleştirildiği temel çalışma alanı nasıl adlandırılır?", options: { A: "Library (Kütüphane)", B: "Timeline (Zaman Çizelgesi)", C: "Stage (Sahne)", D: "Properties (Özellikler)" } },
+                    { id: 'q4', text: "4. Saniyedeki kare hızını ifade eden ve animasyonun akıcılığını belirleyen kısaltma nedir?", options: { A: "RGB", B: "FPS", C: "URL", D: "UI" } },
+                    { id: 'q5', text: "5. Seçme aracına (Selection Tool) hızlıca ulaşmak için klavyeden hangi tuşa basılır?", options: { A: "V tuşu", B: "M tuşu", C: "B tuşu", D: "H tuşu" } }
+                ]
+            }
+        };
+
+        let currentLessonKey = null;
+        let timerInterval = null;
+        let timeLeft = 420; // 7 dakika (saniye cinsinden)
+
+        function toggleSidebar() {
+            document.getElementById('settings-sidebar').classList.toggle('open');
+        }
+
+        function showHomePage() {
+            document.getElementById('home-view').classList.remove('hidden');
+            document.getElementById('courses-view').classList.add('hidden');
+            document.getElementById('about-view').classList.add('hidden');
+            document.getElementById('lesson-view').classList.add('hidden');
+            setActiveNav('nav-home');
+            stopTimer();
+        }
+
+        function showCoursesPage() {
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('courses-view').classList.remove('hidden');
+            document.getElementById('about-view').classList.add('hidden');
+            document.getElementById('lesson-view').classList.add('hidden');
+            setActiveNav('nav-courses');
+            stopTimer();
+        }
+
+        function showAboutPage() {
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('courses-view').classList.add('hidden');
+            document.getElementById('about-view').classList.remove('hidden');
+            document.getElementById('lesson-view').classList.add('hidden');
+            setActiveNav('nav-about');
+            stopTimer();
+        }
+
+        function setActiveNav(navId) {
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const el = document.getElementById(navId);
+            if(el) el.classList.add('active');
+        }
+
+        function loadLesson(key) {
+            currentLessonKey = key;
+            const lesson = lessonsData[key];
+            if (!lesson) return;
+
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('courses-view').classList.add('hidden');
+            document.getElementById('about-view').classList.add('hidden');
+            document.getElementById('lesson-view').classList.remove('hidden');
+
+            document.getElementById('txt-course-title').innerText = lesson.title;
+            document.getElementById('lesson-iframe').src = lesson.video;
+            document.getElementById('btn-pdf-download').href = lesson.pdf;
+
+            // Quiz formunu oluştur
+            const form = document.getElementById('quiz-form');
+            form.innerHTML = '';
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('btn-finish-quiz').disabled = false;
+
+            lesson.questions.forEach(q => {
+                const qDiv = document.createElement('div');
+                qDiv.innerHTML = `<p style="margin: 0 0 6px 0; font-weight: 600;">${q.text}</p>`;
+                
+                for (let [optKey, optText] of Object.entries(q.options)) {
+                    qDiv.innerHTML += `
+                        <label class="quiz-option">
+                            <input type="radio" name="${q.id}" value="${optKey}"> 
+                            <strong>${optKey})</strong> ${optText}
+                        </label>
+                    `;
+                }
+                form.appendChild(qDiv);
+            });
+
+            startTimer();
+        }
+
+        function startTimer() {
+            stopTimer();
+            timeLeft = 420;
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    checkQuiz();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').innerText = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function checkQuiz() {
+            stopTimer();
+            const lesson = lessonsData[currentLessonKey];
+            const answers = lesson.answers;
+            let correctCount = 0;
+            let total = lesson.questions.length;
+
+            for (let q of lesson.questions) {
+                const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+                if (selected && selected.value === answers[q.id]) {
+                    correctCount++;
+                }
+            }
+
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.remove('hidden');
+            document.getElementById('btn-finish-quiz').disabled = true;
+
+            if (correctCount === total) {
+                resultDiv.style.background = '#065f46';
+                resultDiv.style.color = '#d1fae5';
+                resultDiv.innerText = `🎉 Tebrikler! Tüm soruları doğru bildiniz (${correctCount}/${total}).`;
+            } else {
+                resultDiv.style.background = '#991b1b';
+                resultDiv.style.color = '#fee2e2';
+                resultDiv.innerText = `❌ Test Bitti. Doğru Sayısı: ${correctCount} / ${total}. Konuyu tekrar edebilirsiniz.`;
+            }
+        }
+
+        function changeThemeMode(mode) {
+            const r = document.documentElement;
+            if (mode === 'light') {
+                r.style.setProperty('--bg-body', '#f8fafc');
+                r.style.setProperty('--bg-card', '#ffffff');
+                r.style.setProperty('--text-color', '#0f172a');
+                r.style.setProperty('--border-color', '#e2e8f0');
+                r.style.setProperty('--sidebar-bg', '#ffffff');
+                r.style.setProperty('--sidebar-text', '#0f172a');
+            } else {
+                r.style.setProperty('--bg-body', '#121212');
+                r.style.setProperty('--bg-card', '#1e293b');
+                r.style.setProperty('--text-color', '#f3f4f6');
+                r.style.setProperty('--border-color', '#334155');
+                r.style.setProperty('--sidebar-bg', '#1e293b');
+                r.style.setProperty('--sidebar-text', '#f3f4f6');
+            }
+        }
+
+        function changeAccentColor(color) {
+            document.documentElement.style.setProperty('--accent-color', color);
+        }
+
+        function changeLanguage(lang) {
+            const translations = {
+                tr: { settings: "Ayarlar", home: "Ana Sayfa", courses: "Dersler", about: "Hakkında", mode: "Görünüm Modu", dark: "Karanlık Mod", light: "Aydınlık Mod", color: "Tema Rengi", lang: "Dil / Language", heroTitle: "Öğrenmek isteyen herkes için ücretsiz eğitim desteği", heroDesc: "OdakLab'ın misyonu herkese, her yerde, dünya standartlarında ve ücretsiz eğitim imkânı sağlayarak örgün eğitime destek olmaktır.", startTitle: "🚀 Eğitime Hemen Başlayın", startDesc: "11. sınıf müfredatındaki derslere erişmek için dersler sayfamızı inceleyin.", explore: "Dersleri İncele", catalogTitle: "📚 11. Sınıf Ders Kataloğu", catalogSub: "Çalışmak istediğiniz ders modülünü seçebilirsiniz.", aboutTitle: "ℹ️ OdakLab Hakkında", aboutP1: "OdakLab, öğrencilerin başarılarını artırmak için geliştirilmiş eğitim portalıdır.", author: "Hazırlayan:", timer: "Kalan Süre:", pdf: "Konu Anlatımı PDF'ini İndir", quizHeader: "📝 Konu Testi", finishQuiz: "Testi Bitir", footer: "OdakLab Eğitim Portalı — Geleceğin Eğitim Teknolojileri" },
+                en: { settings: "Settings", home: "Home", courses: "Courses", about: "About", mode: "Appearance Mode", dark: "Dark Mode", light: "Light Mode", color: "Accent Color", lang: "Language", heroTitle: "Free education support for everyone who wants to learn", heroDesc: "OdakLab's mission is to provide world-class and free education everywhere.", startTitle: "🚀 Start Learning Now", startDesc: "Check out our courses page to access curriculum lessons.", explore: "Explore Courses", catalogTitle: "📚 11th Grade Course Catalog", catalogSub: "Select a course module to start studying.", aboutTitle: "ℹ️ About OdakLab", aboutP1: "OdakLab is an educational portal designed to improve student success.", author: "Prepared by:", timer: "Time Left:", pdf: "Download Lecture PDF", quizHeader: "📝 Topic Quiz", finishQuiz: "Finish Quiz", footer: "OdakLab Education Portal — Future Education Tech" }
+            };
+
+            const t = translations[lang] || translations['tr'];
+            const setTxt = (id, val) => { const el = document.getElementById(id); if(el && val) el.innerText = val; };
+
+            setTxt('lbl-btn-settings', t.settings);
+            setTxt('nav-home', `🏠 ${t.home}`);
+            setTxt('nav-courses', `📚 ${t.courses}`);
+            setTxt('nav-about', `ℹ️ ${t.about}`);
+            setTxt('txt-sidebar-title', `⚙️ ${t.settings}`);
+            setTxt('lbl-mode', t.mode);
+            setTxt('opt-dark', t.dark);
+            setTxt('opt-light', t.light);
+            setTxt('lbl-color', t.color);
+            setTxt('lbl-language', t.lang);
+            setTxt('txt-hero-title', t.heroTitle);
+            setTxt('txt-hero-desc', t.heroDesc);
+            setTxt('txt-start-title', t.startTitle);
+            setTxt('txt-start-desc', t.startDesc);
+            setTxt('btn-explore-courses', t.explore);
+            setTxt('txt-catalog-title', t.catalogTitle);
+            setTxt('txt-catalog-sub', t.catalogSub);
+            setTxt('txt-about-title', t.aboutTitle);
+            setTxt('txt-about-p1', t.aboutP1);
+            setTxt('txt-author-lbl', t.author);
+            setTxt('txt-timer-label', t.timer);
+            setTxt('txt-pdf-label', t.pdf);
+            setTxt('txt-quiz-header', t.quizHeader);
+            setTxt('btn-finish-quiz', t.finishQuiz);
+            setTxt('txt-footer-about', t.footer);
+        }
+    </script>
+</body>
+</html>
