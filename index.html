@@ -346,7 +346,6 @@
             background: #059669;
         }
 
-        /* Soru ve Şık Stilleri (Doğru/Yanlış Renkleri İçin) */
         .quiz-question-box {
             background: rgba(255, 255, 255, 0.03);
             padding: 12px;
@@ -382,14 +381,6 @@
             background: rgba(239, 68, 68, 0.2) !important;
             border: 1px solid #ef4444 !important;
             color: #f87171 !important;
-        }
-
-        .correct-answer-badge {
-            display: inline-block;
-            margin-top: 6px;
-            font-size: 0.85rem;
-            color: #34d399;
-            font-weight: bold;
         }
 
         .btn-submit {
@@ -517,43 +508,43 @@
             <div class="courses-grid">
                 <div class="course-card" onclick="loadLesson('math')">
                     <div class="course-icon">📐</div>
-                    <h3>Matematik</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;">Trigonometri</p>
+                    <h3 id="c-math-title">Matematik</h3>
+                    <p id="c-math-desc" style="font-size: 0.85rem; color: #94a3b8;">Trigonometri</p>
                 </div>
                 <div class="course-card" onclick="loadLesson('physics')">
                     <div class="course-icon">⚡</div>
-                    <h3>Fizik</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;">Kuvvet ve Hareket</p>
+                    <h3 id="c-phys-title">Fizik</h3>
+                    <p id="c-phys-desc" style="font-size: 0.85rem; color: #94a3b8;">Kuvvet ve Hareket</p>
                 </div>
                 <div class="course-card" onclick="loadLesson('chemistry')">
                     <div class="course-icon">🧪</div>
-                    <h3>Kimya</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;">Modern Atom Teorisi</p>
+                    <h3 id="c-chem-title">Kimya</h3>
+                    <p id="c-chem-desc" style="font-size: 0.85rem; color: #94a3b8;">Modern Atom Teorisi</p>
                 </div>
                 <div class="course-card" onclick="loadLesson('biology')">
                     <div class="course-icon">🧬</div>
-                    <h3>Biyoloji</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;">Sinir Sistemi</p>
+                    <h3 id="c-bio-title">Biyoloji</h3>
+                    <p id="c-bio-desc" style="font-size: 0.85rem; color: #94a3b8;">Sinir Sistemi</p>
                 </div>
                 <div class="course-card" onclick="loadLesson('web')">
                     <div class="course-icon">💻</div>
-                    <h3>Web Uygulama Geliştirme</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;">HTML, CSS, JavaScript</p>
+                    <h3 id="c-web-title">Web Uygulama Geliştirme</h3>
+                    <p id="c-web-desc" style="font-size: 0.85rem; color: #94a3b8;">HTML, CSS, JavaScript</p>
                 </div>
                 <div class="course-card" onclick="loadLesson('network')">
                     <div class="course-icon">🌐</div>
-                    <h3>Ağ Sistemleri</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;">Switch ve Konfigürasyon</p>
+                    <h3 id="c-net-title">Ağ Sistemleri</h3>
+                    <p id="c-net-desc" style="font-size: 0.85rem; color: #94a3b8;">Switch ve Konfigürasyon</p>
                 </div>
                 <div class="course-card" onclick="loadLesson('db')">
                     <div class="course-icon">🗄️</div>
-                    <h3>Veritabanı Yönetimi</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;">SQL ve Tablo İşlemleri</p>
+                    <h3 id="c-db-title">Veritabanı Yönetimi</h3>
+                    <p id="c-db-desc" style="font-size: 0.85rem; color: #94a3b8;">SQL ve Tablo İşlemleri</p>
                 </div>
                 <div class="course-card" onclick="loadLesson('graphics')">
                     <div class="course-icon">🎨</div>
-                    <h3>Grafik ve Animasyon</h3>
-                    <p style="font-size: 0.85rem; color: #94a3b8;">Adobe Animate Giriş</p>
+                    <h3 id="c-gfx-title">Grafik ve Animasyon</h3>
+                    <p id="c-gfx-desc" style="font-size: 0.85rem; color: #94a3b8;">Adobe Animate Giriş</p>
                 </div>
             </div>
         </div>
@@ -600,110 +591,109 @@
 
     <!-- JavaScript Veri ve Çeviri Fonksiyonları -->
     <script>
-        // 8 Adet Doğrulanmış Gerçek PDF Bağlantısı Dahil Ders Verisi
         const lessonsData = {
             math: {
-                title: "📐 11. Sınıf Matematik: Trigonometri",
+                title: { tr: "📐 11. Sınıf Matematik: Trigonometri", en: "📐 11th Grade Math: Trigonometry", fr: "📐 Maths 1ère : Trigonométrie", es: "📐 Matemáticas 11: Trigonometría", ar: "📐 رياضيات الصف الحادي عشر: علم المثلثات" },
                 video: "https://www.youtube.com/embed/ZMHJ_kG5ID0",
                 pdf: "https://img.eba.gov.tr/440/4e2/7a9/2a3/2a9/404/334/82a/9c8/d2f/ed7/18b/c61/9f0/001/4404e27a92a32a940433482a9c8d2fed718bc619f0001.pdf",
                 answers: { q1: 'A', q2: 'B', q3: 'A', q4: 'C', q5: 'A' },
                 questions: [
-                    { id: 'q1', text: "1. Birim çemberde P(x, y) noktasının apsisi neyi ifade eder?", options: { A: "Kosinüs", B: "Sinüs", C: "Tanjant", D: "Kotanjant" } },
-                    { id: 'q2', text: "2. Sinüs fonksiyonunun alabileceği en büyük değer kaçtır?", options: { A: "0", B: "1", C: "2", D: "Sonsuz" } },
-                    { id: 'q3', text: "3. sin²α + cos²α toplamı kaçtır?", options: { A: "1", B: "0", C: "-1", D: "2" } },
-                    { id: 'q4', text: "4. f(x) = 3sinx - 4cosx ifadesinin en büyük değeri kaçtır?", options: { A: "3", B: "4", C: "5", D: "7" } },
-                    { id: 'q5', text: "5. Trigonometrik oranlar hangi geometrik şekil üzerinde tanımlanır?", options: { A: "Birim Çember", B: "Kare", C: "Dikdörtgen", D: "Paralelkenar" } }
+                    { id: 'q1', text: { tr: "1. Birim çemberde P(x, y) noktasının apsisi neyi ifade eder?", en: "1. What does the abscissa of point P(x, y) represent in the unit circle?", fr: "1. Que représente l'abscisse du point P(x, y) dans le cercle trigonométrique ?", es: "¿Qué representa la abscisa del punto P(x, y) en el círculo unitario?", ar: "1. ماذا يمثل إحداثي نقطة P(x, y) على دائرة الوحدة؟" }, options: { A: "Kosinüs / Cosine", B: "Sinüs / Sine", C: "Tanjant / Tangent", D: "Kotanjant / Cotangent" } },
+                    { id: 'q2', text: { tr: "2. Sinüs fonksiyonunun alabileceği en büyük değer kaçtır?", en: "2. What is the maximum value that the sine function can take?", fr: "2. Quelle est la valeur maximale que peut prendre la fonction sinus ?", es: "¿Cuál es el valor máximo que puede tomar la función seno?", ar: "2. ما هي القيمة القصوى التي يمكن أن تأخذها دالة الجيب؟" }, options: { A: "0", B: "1", C: "2", D: "Sonsuz / Infinite" } },
+                    { id: 'q3', text: { tr: "3. sin²α + cos²α toplamı kaçtır?", en: "3. What is the sum of sin²α + cos²α?", fr: "3. Quelle est la somme de sin²α + cos²α ?", es: "¿Cuál es la suma de sin²α + cos²α?", ar: "3. ما هو مجموع sin²α + cos²α؟" }, options: { A: "1", B: "0", C: "-1", D: "2" } },
+                    { id: 'q4', text: { tr: "4. f(x) = 3sinx - 4cosx ifadesinin en büyük değeri kaçtır?", en: "4. What is the maximum value of the expression f(x) = 3sinx - 4cosx?", fr: "4. Quelle est la valeur maximale de f(x) = 3sinx - 4cosx ?", es: "¿Cuál es el valor máximo de f(x) = 3sinx - 4cosx?", ar: "4. ما هي القيمة القصوى للتعبير f(x) = 3sinx - 4cosx؟" }, options: { A: "3", B: "4", C: "5", D: "7" } },
+                    { id: 'q5', text: { tr: "5. Trigonometrik oranlar hangi geometrik şekil üzerinde tanımlanır?", en: "5. On which geometric shape are trigonometric ratios defined?", fr: "5. Sur quelle figure géométrique les rapports trigonométriques sont-ils définis ?", es: "¿Sobre qué figura geométrica se definen las razones trigonométricas?", ar: "5. على أي شكل هندسي يتم تعريف النسب المثلثية؟" }, options: { A: "Birim Çember / Unit Circle", B: "Kare / Square", C: "Dikdörtgen / Rectangle", D: "Paralelkenar / Parallelogram" } }
                 ]
             },
             physics: {
-                title: "⚡ 11. Sınıf Fizik: Kuvvet ve Hareket",
+                title: { tr: "⚡ 11. Sınıf Fizik: Kuvvet ve Hareket", en: "⚡ 11th Grade Physics: Force and Motion", fr: "⚡ Physique 1ère : Force et Mouvement", es: "⚡ Física 11: Fuerza y Movimiento", ar: "⚡ فيزياء الصف الحادي عشر: القوة والحركة" },
                 video: "https://www.youtube.com/embed/zPrIQSKBLgM",
                 pdf: "https://ogmmateryal.eba.gov.tr/panel/upload/etkilesimli/kitap/calisma_defteri/f1/11/fizik/fizik.pdf",
                 answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
                 questions: [
-                    { id: 'q1', text: "1. Vakum ortamda farklı kütleli iki cisim nasıl düşer?", options: { A: "Ağır olan önce", B: "Aynı anda", C: "Hafif olan önce", D: "Rastgele" } },
-                    { id: 'q2', text: "2. Serbest düşmede hız her saniye ne kadar artar?", options: { A: "10 m/s", B: "5 m/s", C: "2 m/s", D: "20 m/s" } },
-                    { id: 'q3', text: "3. İlk 3 saniyede alınan toplam yol kaç metredir?", options: { A: "20", B: "30", C: "45", D: "80" } },
-                    { id: 'q4', text: "4. Atışlarda ivme-zaman grafiği nasıldır?", options: { A: "Sıfır", B: "Sabit -10", C: "Artan", D: "Azalan" } },
-                    { id: 'q5', text: "5. Serbest düşme formülü nedir?", options: { A: "h = 5t²", B: "h = 10t", C: "h = gt", D: "h = vt" } }
+                    { id: 'q1', text: { tr: "1. Vakum ortamda farklı kütleli iki cisim nasıl düşer?", en: "1. How do two bodies of different masses fall in a vacuum?", fr: "1. Comment tombent deux corps de masses différentes dans le vide ?", es: "¿Cómo caen dos cuerpos de diferentes masas en el vacío?", ar: "1. كيف يسقط جسمان كتلتان مختلفتان في الفراغ؟" }, options: { A: "Ağır olan önce", B: "Aynı anda / Simultaneously", C: "Hafif olan önce", D: "Rastgele" } },
+                    { id: 'q2', text: { tr: "2. Serbest düşmede hız her saniye ne kadar artar?", en: "2. How much does speed increase every second in free fall?", fr: "2. De combien la vitesse augmente-t-elle chaque seconde en chute libre ?", es: "¿Cuánto aumenta la velocidad cada segundo en caída libre?", ar: "2. بمقدار كم تزيد السرعة كل ثانية في السقوط الحر؟" }, options: { A: "10 m/s", B: "5 m/s", C: "2 m/s", D: "20 m/s" } },
+                    { id: 'q3', text: { tr: "3. İlk 3 saniyede alınan toplam yol kaç metredir?", en: "3. What is the total distance traveled in the first 3 seconds?", fr: "3. Quelle est la distance totale parcourue en 3 secondes ?", es: "¿Cuál es la distancia total recorrida en los primeros 3 segundos?", ar: "3. ما هي المسافة الإجمالية المقطوعة في أول 3 ثوانٍ؟" }, options: { A: "20", B: "30", C: "45", D: "80" } },
+                    { id: 'q4', text: { tr: "4. Atışlarda ivme-zaman grafiği nasıldır?", en: "4. What is the acceleration-time graph like in vertical throws?", fr: "4. À quoi ressemble le graphique accélération-temps ?", es: "¿Cómo es el gráfico de aceleración-tiempo?", ar: "4. كيف يبدو الرسم البياني للتسارع والزمن في المقذوفات؟" }, options: { A: "Sıfır", B: "Sabit -10 / Constant", C: "Artan", D: "Azalan" } },
+                    { id: 'q5', text: { tr: "5. Serbest düşme formülü nedir?", en: "5. What is the free fall formula?", fr: "5. Quelle est la formule de la chute libre ?", es: "¿Cuál es la fórmula de la caída libre?", ar: "5. ما هي صيغة السقوط الحر؟" }, options: { A: "h = 5t²", B: "h = 10t", C: "h = gt", D: "h = vt" } }
                 ]
             },
             chemistry: {
-                title: "🧪 11. Sınıf Kimya: Modern Atom Teorisi",
+                title: { tr: "🧪 11. Sınıf Kimya: Modern Atom Teorisi", en: "🧪 11th Grade Chemistry: Modern Atomic Theory", fr: "🧪 Chimie 1ère : Théorie Atomique Moderne", es: "🧪 Química 11: Teoría Atómica Moderna", ar: "🧪 كيمياء الصف الحادي عشر: نظرية الذرة الحديثة" },
                 video: "https://www.youtube.com/embed/OOmdF09OL0o",
                 pdf: "https://ogmmateryal.eba.gov.tr/panel/upload/files/swfeuo4ekzq.pdf",
                 answers: { q1: 'A', q2: 'C', q3: 'B', q4: 'A', q5: 'D' },
                 questions: [
-                    { id: 'q1', text: "1. Heisenberg ilkesine göre ne aynı anda belirlenemez?", options: { A: "Yer ve hız", B: "Proton ve nötron", C: "Kütle ve hacim", D: "Atom no ve kütle no" } },
-                    { id: 'q2', text: "2. n=3 düzeyinde en fazla kaç orbital bulunabilir?", options: { A: "3", B: "6", C: "9", D: "18" } },
-                    { id: 'q3', text: "3. d orbitali maksimum kaç elektron alır?", options: { A: "6", B: "10", C: "14", D: "2" } },
-                    { id: 'q4', text: "4. Hangi orbital tüm enerji düzeylerinde bulunur?", options: { A: "s", B: "p", C: "d", D: "f" } },
-                    { id: 'q5', text: "5. s² d⁴ yapısı kararlılık için neye dönüşür?", options: { A: "s² d⁵", B: "s¹ d⁴", C: "s² d³", D: "s¹ d⁵" } }
+                    { id: 'q1', text: { tr: "1. Heisenberg ilkesine göre ne aynı anda belirlenemez?", en: "1. According to the Heisenberg principle, what cannot be determined simultaneously?", fr: "1. Selon le principe de Heisenberg, qu'est-ce qui ne peut pas être déterminé simultanément ?", es: "Según el principio de Heisenberg, ¿qué no se puede determinar simultáneamente?", ar: "1. وفقًا لمبدأ هايزنبرغ، ما الذي لا يمكن تحديده في نفس الوقت؟" }, options: { A: "Yer ve hız / Position & velocity", B: "Proton ve nötron", C: "Kütle ve hacim", D: "Atom no ve kütle no" } },
+                    { id: 'q2', text: { tr: "2. n=3 düzeyinde en fazla kaç orbital bulunabilir?", en: "2. How many orbitals can exist at the n=3 level at most?", fr: "2. Combien d'orbitales peut-on trouver au niveau n=3 ?", es: "¿Cuántos orbitales puede haber como máximo en el nivel n=3?", ar: "2. ما هو الحد الأقصى لعدد المدارات في المستوى n=3؟" }, options: { A: "3", B: "6", C: "9", D: "18" } },
+                    { id: 'q3', text: { tr: "3. d orbitali maksimum kaç elektron alır?", en: "3. How many electrons can the d orbital hold maximum?", fr: "3. Combien d'électrons l'orbitale d peut-elle contenir au maximum ?", es: "¿Cuántos electrones puede contener como máximo el orbital d?", ar: "3. ما هو الحد الأقصى لعدد الإلكترونات التي يستوعبها مدار d؟" }, options: { A: "6", B: "10", C: "14", D: "2" } },
+                    { id: 'q4', text: { tr: "4. Hangi orbital tüm enerji düzeylerinde bulunur?", en: "4. Which orbital is found in all energy levels?", fr: "4. Quelle orbitale se trouve dans tous les niveaux d'énergie ?", es: "¿Qué orbital se encuentra en todos los niveles de energía?", ar: "4. أي مدار يوجد في جميع مستويات الطاقة؟" }, options: { A: "s", B: "p", C: "d", D: "f" } },
+                    { id: 'q5', text: { tr: "5. s² d⁴ yapısı kararlılık için neye dönüşür?", en: "5. What does s² d⁴ structure turn into for stability?", fr: "5. En quoi la structure s² d⁴ se transforme-t-elle pour plus de stabilité ?", es: "¿En qué se convierte la estructura s² d⁴ para mayor estabilidad?", ar: "5. إلى ماذا يتحول تركيب s² d⁴ من أجل الاستقرار؟" }, options: { A: "s² d⁵", B: "s¹ d⁴", C: "s² d³", D: "s¹ d⁵" } }
                 ]
             },
             biology: {
-                title: "🧬 11. Sınıf Biyoloji: Sinir Sistemi",
+                title: { tr: "🧬 11. Sınıf Biyoloji: Sinir Sistemi", en: "🧬 11th Grade Biology: Nervous System", fr: "🧬 Biologie 1ère : Système Nerveux", es: "🧬 Biología 11: Sistema Nervioso", ar: "🧬 أحياء الصف الحادي عشر: الجهاز العصبي" },
                 video: "https://www.youtube.com/embed/CQXOfVZX_hI",
                 pdf: "https://ogmmateryal.eba.gov.tr/panel/upload/fasikul/gwzh21adm5a.pdf",
                 answers: { q1: 'A', q2: 'C', q3: 'B', q4: 'A', q5: 'C' },
                 questions: [
-                    { id: 'q1', text: "1. Sinir dokunun temel hücre elemanı nedir?", options: { A: "Nöron", B: "Glia", C: "Nefron", D: "Alveol" } },
-                    { id: 'q2', text: "2. Nöronda hangi organel eksik olduğu için bölünemez?", options: { A: "Mitokondri", B: "Ribozom", C: "Sentrozom", D: "ER" } },
-                    { id: 'q3', text: "3. Merkezi sistemde miyelin üreten glia hangisidir?", options: { A: "Şuan", B: "Oligodendrosit", C: "Astrosit", D: "Mikroglia" } },
-                    { id: 'q4', text: "4. Uyarıyı merkeze taşıyan nöron hangisidir?", options: { A: "Duyu nöronu", B: "Ara nöron", C: "Motor nöron", D: "Efektör" } },
-                    { id: 'q5', text: "5. Lokal anestezide ilk ne engellenir?", options: { A: "Motor nöron", B: "Ara nöron", C: "Duyu nöronu", D: "Sinaps" } }
+                    { id: 'q1', text: { tr: "1. Sinir dokunun temel hücre elemanı nedir?", en: "1. What is the fundamental cellular element of nervous tissue?", fr: "1. Quel est l'élément cellulaire fondamental du tissu nerveux ?", es: "¿Cuál es el elemento celular fundamental del tejido nervioso?", ar: "1. ما هو العنصر الخلوي الأساسي للأنسجة العصبية؟" }, options: { A: "Nöron / Neuron", B: "Glia", C: "Nefron", D: "Alveol" } },
+                    { id: 'q2', text: { tr: "2. Nöronda hangi organel eksik olduğu için bölünemez?", en: "2. Why can't a neuron divide due to the missing organelle?", fr: "2. Quel organelle manque-t-il à un neurone pour qu'il ne puisse pas se diviser ?", es: "¿Qué orgánulo le falta a una neurona para que no pueda dividirse?", ar: "2. ما هو العضو الخلوي المفقود في الخلية العصبية الذي يمنعها من الانقسام؟" }, options: { A: "Mitokondri", B: "Ribozom", C: "Sentrozom / Centrosome", D: "ER" } },
+                    { id: 'q3', text: { tr: "3. Merkezi sistemde miyelin üreten glia hangisidir?", en: "3. Which glia produces myelin in the central nervous system?", fr: "3. Quelle glia produit de la myéline dans le système nerveux central ?", es: "¿Qué glía produce mielina en el sistema nervioso central?", ar: "3. ما هي الخلية الدبقية التي تنتج الميالين في الجهاز العصبي المركزي؟" }, options: { A: "Şuan", B: "Oligodendrosit", C: "Astrosit", D: "Mikroglia" } },
+                    { id: 'q4', text: { tr: "4. Uyarıyı merkeze taşıyan nöron hangisidir?", en: "4. Which neuron carries the impulse to the center?", fr: "4. Quel neurone transporte l'influx vers le centre ?", es: "¿Qué neurona transporta el impulso hacia el centro?", ar: "4. ما هو العصبون الذي ينقل التنبيه إلى المركز؟" }, options: { A: "Duyu nöronu / Sensory neuron", B: "Ara nöron", C: "Motor nöron", D: "Efektör" } },
+                    { id: 'q5', text: { tr: "5. Lokal anestezide ilk ne engellenir?", en: "5. What is blocked first in local anesthesia?", fr: "5. Qu'est-ce qui est bloqué en premier lors d'une anesthésie locale ?", es: "¿Qué se bloquea primero en la anestesia local?", ar: "5. ما الذي يتم حظره أولاً في التخدير الموضعي؟" }, options: { A: "Motor nöron", B: "Ara nöron", C: "Duyu nöronu / Sensory neuron", D: "Sinaps" } }
                 ]
             },
             web: {
-                title: "💻 Web Uygulama Geliştirme",
+                title: { tr: "💻 Web Uygulama Geliştirme", en: "💻 Web Application Development", fr: "💻 Développement d'applications Web", es: "💻 Desarrollo de Aplicaciones Web", ar: "💻 تطوير تطبيقات الويب" },
                 video: "https://www.youtube.com/embed/Y86zzWRle3g",
                 pdf: "https://onuraltuntas.net/dokuman/html.pdf",
                 answers: { q1: 'A', q2: 'B', q3: 'C', q4: 'A', q5: 'B' },
                 questions: [
-                    { id: 'q1', text: "1. Web sitesinin iskeletini oluşturan dil hangisidir?", options: { A: "HTML", B: "CSS", C: "JavaScript", D: "SQL" } },
-                    { id: 'q2', text: "2. Web sitesine stil kazandıran dil hangisidir?", options: { A: "HTML", B: "CSS", C: "Bootstrap", D: "jQuery" } },
-                    { id: 'q3', text: "3. Hazır tasarım bileşenleri sunan kütüphane nedir?", options: { A: "React", B: "Node.js", C: "Bootstrap", D: "MongoDB" } },
-                    { id: 'q4', text: "4. Sayfalara dinamiklik katan dil hangisidir?", options: { A: "JavaScript", B: "HTML", C: "CSS", D: "SQL" } },
-                    { id: 'q5', text: "5. Hızlı DOM manipülasyonu sağlayan JS kütüphanesi nedir?", options: { A: "Angular", B: "jQuery", C: "Vue", D: "Bootstrap" } }
+                    { id: 'q1', text: { tr: "1. Web sitesinin iskeletini oluşturan dil hangisidir?", en: "1. Which language forms the skeleton of a website?", fr: "1. Quel langage forme le squelette d'un site web ?", es: "¿Qué lenguaje forma el esqueleto de un sitio web?", ar: "1. ما هي اللغة التي تشكل هيكل موقع الويب؟" }, options: { A: "HTML", B: "CSS", C: "JavaScript", D: "SQL" } },
+                    { id: 'q2', text: { tr: "2. Web sitesine stil kazandıran dil hangisidir?", en: "2. Which language styles a website?", fr: "2. Quel langage stylise un site web ?", es: "¿Qué lenguaje da estilo a un sitio web?", ar: "2. ما هي اللغة التي تعطي التصميم والأناقة لموقع الويب؟" }, options: { A: "HTML", B: "CSS", C: "Bootstrap", D: "jQuery" } },
+                    { id: 'q3', text: { tr: "3. Hazır tasarım bileşenleri sunan kütüphane nedir?", en: "3. What is the library offering ready design components?", fr: "3. Qu'est-ce que la bibliothèque offrant des composants de design prêts à l'emploi ?", es: "¿Qué biblioteca ofrece componentes de diseño listos?", ar: "3. ما هي المكتبة التي تقدم مكونات تصميم جاهزة؟" }, options: { A: "React", B: "Node.js", C: "Bootstrap", D: "MongoDB" } },
+                    { id: 'q4', text: { tr: "4. Sayfalara dinamiklik katan dil hangisidir?", en: "4. Which language adds dynamism to pages?", fr: "4. Quel langage ajoute du dynamisme aux pages ?", es: "¿Qué lenguaje añade dinamismo a las páginas?", ar: "4. ما هي اللغة التي تضيف الديناميكية للصفحات؟" }, options: { A: "JavaScript", B: "HTML", C: "CSS", D: "SQL" } },
+                    { id: 'q5', text: { tr: "5. Hızlı DOM manipülasyonu sağlayan JS kütüphanesi nedir?", en: "5. What is the JS library providing fast DOM manipulation?", fr: "5. Qu'est-ce que la bibliothèque JS offrant une manipulation rapide du DOM ?", es: "¿Qué biblioteca JS proporciona manipulación rápida del DOM?", ar: "5. ما هي مكتبة جافا سكريبت التي توفر معالجة سريعة لـ DOM؟" }, options: { A: "Angular", B: "jQuery", C: "Vue", D: "Bootstrap" } }
                 ]
             },
             network: {
-                title: "🌐 Ağ Sistemleri ve Anahtarlama",
+                title: { tr: "🌐 Ağ Sistemleri ve Anahtarlama", en: "🌐 Network Systems and Switching", fr: "🌐 Systèmes Réseaux et Commutation", es: "🌐 Sistemas de Red y Conmutación", ar: "🌐 أنظمة الشبكات والتبديل" },
                 video: "https://www.youtube.com/embed/wwdl0KdFzkI",
                 pdf: "https://www.fatihmarasli.com/wp-content/uploads/2020/06/Bilgisayar-A%C4%9F-Sistemleri.pdf",
                 answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
                 questions: [
-                    { id: 'q1', text: "1. Switch konfigürasyonuna hangi modda başlanır?", options: { A: "User Exec", B: "Privileged / Global Config", C: "ROM Mon", D: "VLAN DB" } },
-                    { id: 'q2', text: "2. Şifrelemeyi güvenli hale getiren komut nedir?", options: { A: "enable secret", B: "enable password", C: "line con 0", D: "banner motd" } },
-                    { id: 'q3', text: "3. Uzaktan bağlantı için hangi arayüz yapılandırılır?", options: { A: "FastEthernet", B: "Console", C: "vty", D: "Loopback" } },
-                    { id: 'q4', text: "4. Otomatik IP dağıtımı için hangi servis kullanılır?", options: { A: "DNS", B: "DHCP", C: "FTP", D: "SMTP" } },
-                    { id: 'q5', text: "5. Komşu cihazları gösteren protokol hangisidir?", options: { A: "CDP", B: "ARP", C: "ICMP", D: "HTTP" } }
+                    { id: 'q1', text: { tr: "1. Switch konfigürasyonuna hangi modda başlanır?", en: "1. In which mode does switch configuration start?", fr: "1. Dans quel mode commence la configuration du switch ?", es: "¿En qué modo se inicia la configuración del switch?", ar: "1. في أي وضع تبدأ تكوين المحول (Switch)؟" }, options: { A: "User Exec", B: "Privileged / Global Config", C: "ROM Mon", D: "VLAN DB" } },
+                    { id: 'q2', text: { tr: "2. Şifrelemeyi güvenli hale getiren komut nedir?", en: "2. What is the command that makes encryption secure?", fr: "2. Quelle est la commande qui sécurise le chiffrement ?", es: "¿Cuál es el comando que asegura el cifrado?", ar: "2. ما هو الأمر الذي يجعل التشفير آمنًا؟" }, options: { A: "enable secret", B: "enable password", C: "line con 0", D: "banner motd" } },
+                    { id: 'q3', text: { tr: "3. Uzaktan bağlantı için hangi arayüz yapılandırılır?", en: "3. Which interface is configured for remote connection?", fr: "3. Quelle interface est configurée pour la connexion à distance ?", es: "¿Qué interfaz se configura para conexión remota?", ar: "3. ما هي الواجهة التي يتم تكوينها للاتصال عن بعد؟" }, options: { A: "FastEthernet", B: "Console", C: "vty", D: "Loopback" } },
+                    { id: 'q4', text: { tr: "4. Otomatik IP dağıtımı için hangi servis kullanılır?", en: "4. Which service is used for automatic IP distribution?", fr: "4. Quel service est utilisé pour la distribution automatique d'IP ?", es: "¿Qué servicio se usa para la distribución automática de IP?", ar: "4. ما هي الخدمة المستخدمة للتوزيع التلقائي لعناوين IP؟" }, options: { A: "DNS", B: "DHCP", C: "FTP", D: "SMTP" } },
+                    { id: 'q5', text: { tr: "5. Komşu cihazları gösteren protokol hangisidir?", en: "5. Which protocol shows neighboring devices?", fr: "5. Quel protocole affiche les appareils voisins ?", es: "¿Qué protocolo muestra los dispositivos vecinos?", ar: "5. ما هو البروتوكول الذي يوضح الأجهزة المجاورة؟" }, options: { A: "CDP", B: "ARP", C: "ICMP", D: "HTTP" } }
                 ]
             },
             db: {
-                title: "🗄️ Veritabanı Yönetimi",
+                title: { tr: "🗄️ Veritabanı Yönetimi", en: "🗄️ Database Management", fr: "🗄️ Gestion de Base de Données", es: "🗄️ Gestión de Bases de Datos", ar: "🗄️ إدارة قواعد البيانات" },
                 video: "https://www.youtube.com/embed/cKmlC8f0jZM",
                 pdf: "https://erkankaynak.com.tr/files/veri-tabani-yonetim-sistemleri/ders-notu.pdf",
                 answers: { q1: 'A', q2: 'A', q3: 'C', q4: 'A', q5: 'B' },
                 questions: [
-                    { id: 'q1', text: "1. Yeni tablo oluşturma komutu nedir?", options: { A: "CREATE TABLE", B: "INSERT INTO", C: "SELECT FROM", D: "ALTER TABLE" } },
-                    { id: 'q2', text: "2. Tablodaki verileri listelemek için ne kullanılır?", options: { A: "SELECT * FROM", B: "CREATE TABLE", C: "DROP TABLE", D: "UPDATE" } },
-                    { id: 'q3', text: "3. Metinsel ifadeler için hangi veri türü kullanılır?", options: { A: "NUMBER", B: "DATE", C: "VARCHAR", D: "INTEGER" } },
-                    { id: 'q4', text: "4. Sayısal veriler için hangi veri türü kullanılır?", options: { A: "NUMBER", B: "CHAR", C: "VARCHAR", D: "DATE" } },
-                    { id: 'q5', text: "5. Tarih saklamak için hangi veri türü kullanılır?", options: { A: "NUMBER", B: "DATE", C: "VARCHAR", D: "CHAR" } }
+                    { id: 'q1', text: { tr: "1. Yeni tablo oluşturma komutu nedir?", en: "1. What is the command to create a new table?", fr: "1. Quelle est la commande pour créer une nouvelle table ?", es: "¿Cuál es el comando para crear una nueva tabla?", ar: "1. ما هو أمر إنشاء جدول جديد؟" }, options: { A: "CREATE TABLE", B: "INSERT INTO", C: "SELECT FROM", D: "ALTER TABLE" } },
+                    { id: 'q2', text: { tr: "2. Tablodaki verileri listelemek için ne kullanılır?", en: "2. What is used to list data in a table?", fr: "2. Qu'est-ce qui est utilisé pour lister les données d'une table ?", es: "¿Qué se usa para listar los datos de una tabla?", ar: "2. ماذا يُستخدم لعرض البيانات في الجدول؟" }, options: { A: "SELECT * FROM", B: "CREATE TABLE", C: "DROP TABLE", D: "UPDATE" } },
+                    { id: 'q3', text: { tr: "3. Metinsel ifadeler için hangi veri türü kullanılır?", en: "3. Which data type is used for text expressions?", fr: "3. Quel type de données est utilisé pour les expressions textuelles ?", es: "¿Qué tipo de datos se usa para expresiones de texto?", ar: "3. ما هو نوع البيانات المستخدم للنصوص؟" }, options: { A: "NUMBER", B: "DATE", C: "VARCHAR", D: "INTEGER" } },
+                    { id: 'q4', text: { tr: "4. Sayısal veriler için hangi veri türü kullanılır?", en: "4. Which data type is used for numeric data?", fr: "4. Quel type de données est utilisé pour les données numériques ?", es: "¿Qué tipo de datos se usa para datos numéricos?", ar: "4. ما هو نوع البيانات المستخدم للبيانات الرقمية؟" }, options: { A: "NUMBER", B: "CHAR", C: "VARCHAR", D: "DATE" } },
+                    { id: 'q5', text: { tr: "5. Tarih saklamak için hangi veri türü kullanılır?", en: "5. Which data type is used to store dates?", fr: "5. Quel type de données est utilisé pour stocker les dates ?", es: "¿Qué tipo de datos se usa para almacenar fechas?", ar: "5. ما هو نوع البيانات المستخدم لتخزين التواريخ؟" }, options: { A: "NUMBER", B: "DATE", C: "VARCHAR", D: "CHAR" } }
                 ]
             },
             graphics: {
-                title: "🎨 Grafik ve Animasyon",
+                title: { tr: "🎨 Grafik ve Animasyon", en: "🎨 Graphics and Animation", fr: "🎨 Graphismes et Animation", es: "🎨 Gráficos y Animación", ar: "🎨 الرسومات والرسوم المتحركة" },
                 video: "https://www.youtube.com/embed/gLoBKx5QNG4",
                 pdf: "https://www.fatihmarasli.com/wp-content/uploads/2017/04/grafik-animasyon-ders-notu.pdf",
                 answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
                 questions: [
-                    { id: 'q1', text: "1. Adobe Animate'in eski adı nedir?", options: { A: "Photoshop", B: "Flash", C: "Illustrator", D: "Premiere" } },
-                    { id: 'q2', text: "2. Animate projelerini tarayıcıda çalıştırmayı sağlayan platform nedir?", options: { A: "HTML5 Canvas", B: "ActionScript", C: "Silverlight", D: "Flash Player" } },
-                    { id: 'q3', text: "3. Çizimlerin yapıldığı alan nedir?", options: { A: "Library", B: "Timeline", C: "Stage", D: "Properties" } },
-                    { id: 'q4', text: "4. Kare hızını belirten birim nedir?", options: { A: "RGB", B: "FPS", C: "URL", D: "UI" } },
-                    { id: 'q5', text: "5. Seçme aracının kısayolu hangi tuştur?", options: { A: "V tuşu", B: "M tuşu", C: "B tuşu", D: "H tuşu" } }
+                    { id: 'q1', text: { tr: "1. Adobe Animate'in eski adı nedir?", en: "1. What is the former name of Adobe Animate?", fr: "1. Quel est l'ancien nom d'Adobe Animate ?", es: "¿Cuál es el nombre anterior de Adobe Animate?", ar: "1. ما هو الاسم القديم لبرنامج Adobe Animate؟" }, options: { A: "Photoshop", B: "Flash", C: "Illustrator", D: "Premiere" } },
+                    { id: 'q2', text: { tr: "2. Animate projelerini tarayıcıda çalıştırmayı sağlayan platform nedir?", en: "2. What is the platform that allows Animate projects to run in the browser?", fr: "2. Quelle est la plateforme qui permet d'exécuter des projets Animate dans le navigateur ?", es: "¿Qué plataforma permite ejecutar proyectos de Animate en el navegador?", ar: "2. ما هي المنصة التي تسمح بتشغيل مشاريع Animate في المتصفح؟" }, options: { A: "HTML5 Canvas", B: "ActionScript", C: "Silverlight", D: "Flash Player" } },
+                    { id: 'q3', text: { tr: "3. Çizimlerin yapıldığı alan nedir?", en: "3. What is the area where drawings are made?", fr: "3. Quelle est la zone où les dessins sont faits ?", es: "¿Cuál es el área donde se realizan los dibujos?", ar: "3. ما هي المساحة التي يتم فيها إنشاء الرسومات؟" }, options: { A: "Library", B: "Timeline", C: "Stage", D: "Properties" } },
+                    { id: 'q4', text: { tr: "4. Kare hızını belirten birim nedir?", en: "4. What is the unit indicating frame rate?", fr: "4. Quelle est l'unité indiquant la fréquence d'images ?", es: "¿Cuál es la unidad que indica la velocidad de fotogramas?", ar: "4. ما هي الوحدة التي تشير إلى معدل الإطارات؟" }, options: { A: "RGB", B: "FPS", C: "URL", D: "UI" } },
+                    { id: 'q5', text: { tr: "5. Seçme aracının kısayolu hangi tuştur?", en: "5. Which key is the shortcut for the selection tool?", fr: "5. Quelle touche est le raccourci pour l'outil de sélection ?", es: "¿Qué tecla es el atajo para la herramienta de selección?", ar: "5. ما هو اختصار لوحة المفاتيح لأداة التحديد؟" }, options: { A: "V tuşu", B: "M tuşu", C: "B tuşu", D: "H tuşu" } }
                 ]
             }
         };
@@ -712,6 +702,7 @@
         let timerInterval = null;
         let timeLeft = 420;
         let isQuizFinished = false;
+        let currentLang = 'tr';
 
         function toggleSidebar() {
             document.getElementById('settings-sidebar').classList.toggle('open');
@@ -751,180 +742,76 @@
         }
 
         function loadLesson(key) {
-            currentLessonKey = key;
             const lesson = lessonsData[key];
             if (!lesson) return;
+            currentLessonKey = key;
+            isQuizFinished = false;
 
             document.getElementById('home-view').classList.add('hidden');
             document.getElementById('courses-view').classList.add('hidden');
             document.getElementById('about-view').classList.add('hidden');
             document.getElementById('lesson-view').classList.remove('hidden');
 
-            document.getElementById('txt-course-title').innerText = lesson.title;
+            document.getElementById('txt-course-title').innerText = lesson.title[currentLang] || lesson.title['tr'];
             document.getElementById('lesson-iframe').src = lesson.video;
             document.getElementById('btn-pdf-download').href = lesson.pdf;
 
-            resetQuizUI();
-            renderQuiz(lesson);
-            startTimer();
-        }
-
-        function renderQuiz(lesson) {
             const form = document.getElementById('quiz-form');
             form.innerHTML = '';
-
+            
             lesson.questions.forEach(q => {
-                const qDiv = document.createElement('div');
-                qDiv.className = 'quiz-question-box';
-                qDiv.id = `box-${q.id}`;
+                let box = document.createElement('div');
+                box.className = 'quiz-question-box';
+                box.innerHTML = `<strong>${q.text[currentLang] || q.text['tr']}</strong>`;
                 
-                let html = `<p style="margin: 0 0 8px 0; font-weight: 600;">${q.text}</p>`;
-                
-                for (let [optKey, optText] of Object.entries(q.options)) {
-                    html += `
-                        <label class="quiz-option" id="lbl-${q.id}-${optKey}">
-                            <input type="radio" name="${q.id}" value="${optKey}"> 
-                            <strong>${optKey})</strong> ${optText}
-                        </label>
-                    `;
-                }
-                html += `<div id="feedback-${q.id}"></div>`;
-                qDiv.innerHTML = html;
-                form.appendChild(qDiv);
+                Object.keys(q.options).forEach(optKey => {
+                    let optDiv = document.createElement('label');
+                    optDiv.className = 'quiz-option';
+                    optDiv.innerHTML = `<input type="radio" name="${q.id}" value="${optKey}"> <span>${optKey}) ${q.options[optKey]}</span>`;
+                    box.appendChild(optDiv);
+                });
+                form.appendChild(box);
             });
+
+            const resDiv = document.getElementById('quiz-result');
+            resDiv.classList.add('hidden');
+            resDiv.innerText = '';
+            
+            const submitBtn = document.getElementById('btn-finish-quiz');
+            submitBtn.classList.remove('hidden');
+
+            startTimer(420);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function handleQuizAction() {
-            if (!isQuizFinished) {
-                checkQuiz();
-            } else {
-                // Testi tekrar et
+            if (isQuizFinished) {
                 loadLesson(currentLessonKey);
+                return;
             }
-        }
 
-        function checkQuiz() {
             const lesson = lessonsData[currentLessonKey];
-            if (!lesson) return;
-
+            const answers = lesson.answers;
             let score = 0;
-            const total = lesson.questions.length;
+            let total = Object.keys(answers).length;
+            let allAnswered = true;
 
-            lesson.questions.forEach(q => {
-                const selected = document.querySelector(`input[name="${q.id}"]:checked`);
-                const correctKey = lesson.answers[q.id];
-                const feedbackDiv = document.getElementById(`feedback-${q.id}`);
-
-                // Tüm inputları kilitler
-                const inputs = document.querySelectorAll(`input[name="${q.id}"]`);
-                inputs.forEach(inp => inp.disabled = true);
-
-                if (selected) {
-                    const userVal = selected.value;
-                    const userLabel = document.getElementById(`lbl-${q.id}-${userVal}`);
-
-                    if (userVal === correctKey) {
-                        score++;
-                        if (userLabel) userLabel.classList.add('correct');
-                    } else {
-                        if (userLabel) userLabel.classList.add('incorrect');
-                        // Doğru cevabı yeşil olarak işaretle
-                        const correctLabel = document.getElementById(`lbl-${q.id}-${correctKey}`);
-                        if (correctLabel) correctLabel.classList.add('correct');
-                        
-                        if (feedbackDiv) {
-                            feedbackDiv.innerHTML = `<span class="correct-answer-badge">✓ Doğru Cevap: ${correctKey}) ${q.options[correctKey]}</span>`;
-                        }
-                    }
-                } else {
-                    // Boş bırakılmışsa doğru cevabı göster
-                    const correctLabel = document.getElementById(`lbl-${q.id}-${correctKey}`);
-                    if (correctLabel) correctLabel.classList.add('correct');
-                    if (feedbackDiv) {
-                        feedbackDiv.innerHTML = `<span class="correct-answer-badge">⚠️ Yanıtlanmadı. Doğru Cevap: ${correctKey}) ${q.options[correctKey]}</span>`;
-                    }
+            for (let qId in answers) {
+                const selected = document.querySelector(`input[name="${qId}"]:checked`);
+                if (!selected) {
+                    allAnswered = false;
+                    break;
                 }
-            });
+            }
 
-            // Sonuç Kutusu
-            const resultDiv = document.getElementById('quiz-result');
-            resultDiv.classList.remove('hidden');
-            resultDiv.style.background = score >= 3 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)';
-            resultDiv.style.border = score >= 3 ? '1px solid #10b981' : '1px solid #ef4444';
-            resultDiv.style.color = score >= 3 ? '#34d399' : '#f87171';
-            resultDiv.innerHTML = `🏆 Test Bitti! Doğru Sayısı: ${score} / ${total}`;
+            if (!allAnswered) {
+                const alerts = { tr: "Lütfen tüm soruları yanıtlayınız!", en: "Please answer all questions!", fr: "Veuillez répondre à toutes les questions !", es: "¡Por favor responda todas las preguntas!", ar: "يرجى الإجابة على جميع الأسئلة!" };
+                alert(alerts[currentLang] || alerts["tr"]);
+                return;
+            }
 
-            // Buton durumunu değiştir
-            const btn = document.getElementById('btn-finish-quiz');
-            btn.innerText = "🔄 Testi Tekrar Et";
+            stopTimer();
             isQuizFinished = true;
 
-            stopTimer();
-        }
-
-        function resetQuizUI() {
-            isQuizFinished = false;
-            const btn = document.getElementById('btn-finish-quiz');
-            btn.innerText = "Testi Bitir";
-            btn.disabled = false;
-            const resultDiv = document.getElementById('quiz-result');
-            resultDiv.classList.add('hidden');
-        }
-
-        function startTimer() {
-            stopTimer();
-            timeLeft = 420;
-            updateTimerDisplay();
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                updateTimerDisplay();
-                if (timeLeft <= 0) {
-                    stopTimer();
-                    checkQuiz();
-                }
-            }, 1000);
-        }
-
-        function stopTimer() {
-            if (timerInterval) clearInterval(timerInterval);
-        }
-
-        function updateTimerDisplay() {
-            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-            const s = (timeLeft % 60).toString().padStart(2, '0');
-            const el = document.getElementById('timer');
-            if (el) el.innerText = `${m}:${s}`;
-        }
-
-        function changeThemeMode(mode) {
-            if (mode === 'light') {
-                document.documentElement.style.setProperty('--bg-body', '#f1f5f9');
-                document.documentElement.style.setProperty('--bg-card', '#ffffff');
-                document.documentElement.style.setProperty('--text-color', '#0f172a');
-                document.documentElement.style.setProperty('--border-color', '#cbd5e1');
-                document.documentElement.style.setProperty('--sidebar-bg', '#ffffff');
-                document.documentElement.style.setProperty('--sidebar-text', '#0f172a');
-            } else {
-                document.documentElement.style.setProperty('--bg-body', '#121212');
-                document.documentElement.style.setProperty('--bg-card', '#1e293b');
-                document.documentElement.style.setProperty('--text-color', '#f3f4f6');
-                document.documentElement.style.setProperty('--border-color', '#334155');
-                document.documentElement.style.setProperty('--sidebar-bg', '#1e293b');
-                document.documentElement.style.setProperty('--sidebar-text', '#f3f4f6');
-            }
-        }
-
-        function changeAccentColor(color) {
-            document.documentElement.style.setProperty('--accent-color', color);
-        }
-
-        function changeLanguage(lang) {
-            if (lang === 'ar') {
-                document.body.setAttribute('dir', 'rtl');
-            } else {
-                document.body.setAttribute('dir', 'ltr');
-            }
-        }
-    </script>
-</body>
-</html>
+            for (let qId in answers) {
+         ... (16 KB kaldı)
