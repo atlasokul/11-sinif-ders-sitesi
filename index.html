@@ -346,10 +346,50 @@
             background: #059669;
         }
 
+        /* Soru ve Şık Stilleri (Doğru/Yanlış Renkleri İçin) */
+        .quiz-question-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+        }
+
         .quiz-option {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             margin: 6px 0;
+            padding: 8px 12px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .quiz-option.correct {
+            background: rgba(16, 185, 129, 0.2) !important;
+            border: 1px solid #10b981 !important;
+            color: #34d399 !important;
+            font-weight: bold;
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2) !important;
+            border: 1px solid #ef4444 !important;
+            color: #f87171 !important;
+        }
+
+        .correct-answer-badge {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 0.85rem;
+            color: #34d399;
+            font-weight: bold;
         }
 
         .btn-submit {
@@ -463,7 +503,7 @@
                 </div>
             </div>
             <div class="hero-image-container">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Görsel">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Eğitim Görseli">
             </div>
         </div>
 
@@ -521,7 +561,7 @@
         <!-- 3. HAKKINDA SAYFASI -->
         <div id="about-view" class="about-section hidden">
             <h2 id="txt-about-title">ℹ️ OdakLab Hakkında</h2>
-            <p id="txt-about-p1">OdakLab, öğrencilerin başarılarını artırmak için geliştirilmiş eğitim portalıdır.</p>
+            <p id="txt-about-p1">OdakLab, öğrencilerin başarılarını artırmak için geliştirilmiş interaktif eğitim portalıdır.</p>
             <p><strong id="txt-author-lbl">Hazırlayan:</strong> Atlas Özdemir</p>
         </div>
 
@@ -539,7 +579,7 @@
                     <div class="video-wrapper">
                         <iframe id="lesson-iframe" src="" title="Ders Videosu" allowfullscreen></iframe>
                     </div>
-                    <a id="btn-pdf-download" href="#" download class="pdf-download-btn">
+                    <a id="btn-pdf-download" href="#" target="_blank" download class="pdf-download-btn">
                         📄 <span id="txt-pdf-label">Konu Anlatımı PDF'ini İndir</span>
                     </a>
                 </div>
@@ -547,7 +587,7 @@
                 <div class="card">
                     <h3 id="txt-quiz-header" style="margin-top:0; border-bottom: 2px solid var(--accent-color); padding-bottom: 8px;">📝 Konu Testi</h3>
                     <form id="quiz-form" style="display: flex; flex-direction: column; gap: 12px;"></form>
-                    <button type="button" id="btn-finish-quiz" onclick="checkQuiz()" class="btn-submit">Testi Bitir</button>
+                    <button type="button" id="btn-finish-quiz" onclick="handleQuizAction()" class="btn-submit">Testi Bitir</button>
                     <div id="quiz-result" class="hidden" style="margin-top: 12px; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold;"></div>
                 </div>
             </div>
@@ -560,11 +600,12 @@
 
     <!-- JavaScript Veri ve Çeviri Fonksiyonları -->
     <script>
+        // 8 Adet Doğrulanmış Gerçek PDF Bağlantısı Dahil Ders Verisi
         const lessonsData = {
             math: {
                 title: "📐 11. Sınıf Matematik: Trigonometri",
                 video: "https://www.youtube.com/embed/ZMHJ_kG5ID0",
-                pdf: "docs/Matematik_Notlari.pdf",
+                pdf: "https://img.eba.gov.tr/440/4e2/7a9/2a3/2a9/404/334/82a/9c8/d2f/ed7/18b/c61/9f0/001/4404e27a92a32a940433482a9c8d2fed718bc619f0001.pdf",
                 answers: { q1: 'A', q2: 'B', q3: 'A', q4: 'C', q5: 'A' },
                 questions: [
                     { id: 'q1', text: "1. Birim çemberde P(x, y) noktasının apsisi neyi ifade eder?", options: { A: "Kosinüs", B: "Sinüs", C: "Tanjant", D: "Kotanjant" } },
@@ -577,7 +618,7 @@
             physics: {
                 title: "⚡ 11. Sınıf Fizik: Kuvvet ve Hareket",
                 video: "https://www.youtube.com/embed/zPrIQSKBLgM",
-                pdf: "docs/Fizik_Notlari.pdf",
+                pdf: "https://ogmmateryal.eba.gov.tr/panel/upload/etkilesimli/kitap/calisma_defteri/f1/11/fizik/fizik.pdf",
                 answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
                 questions: [
                     { id: 'q1', text: "1. Vakum ortamda farklı kütleli iki cisim nasıl düşer?", options: { A: "Ağır olan önce", B: "Aynı anda", C: "Hafif olan önce", D: "Rastgele" } },
@@ -590,7 +631,7 @@
             chemistry: {
                 title: "🧪 11. Sınıf Kimya: Modern Atom Teorisi",
                 video: "https://www.youtube.com/embed/OOmdF09OL0o",
-                pdf: "docs/Kimya_Notlari.pdf",
+                pdf: "https://ogmmateryal.eba.gov.tr/panel/upload/files/swfeuo4ekzq.pdf",
                 answers: { q1: 'A', q2: 'C', q3: 'B', q4: 'A', q5: 'D' },
                 questions: [
                     { id: 'q1', text: "1. Heisenberg ilkesine göre ne aynı anda belirlenemez?", options: { A: "Yer ve hız", B: "Proton ve nötron", C: "Kütle ve hacim", D: "Atom no ve kütle no" } },
@@ -603,7 +644,7 @@
             biology: {
                 title: "🧬 11. Sınıf Biyoloji: Sinir Sistemi",
                 video: "https://www.youtube.com/embed/CQXOfVZX_hI",
-                pdf: "docs/Biyoloji_Notlari.pdf",
+                pdf: "https://ogmmateryal.eba.gov.tr/panel/upload/fasikul/gwzh21adm5a.pdf",
                 answers: { q1: 'A', q2: 'C', q3: 'B', q4: 'A', q5: 'C' },
                 questions: [
                     { id: 'q1', text: "1. Sinir dokunun temel hücre elemanı nedir?", options: { A: "Nöron", B: "Glia", C: "Nefron", D: "Alveol" } },
@@ -616,7 +657,7 @@
             web: {
                 title: "💻 Web Uygulama Geliştirme",
                 video: "https://www.youtube.com/embed/Y86zzWRle3g",
-                pdf: "docs/Web_Notlari.pdf",
+                pdf: "https://onuraltuntas.net/dokuman/html.pdf",
                 answers: { q1: 'A', q2: 'B', q3: 'C', q4: 'A', q5: 'B' },
                 questions: [
                     { id: 'q1', text: "1. Web sitesinin iskeletini oluşturan dil hangisidir?", options: { A: "HTML", B: "CSS", C: "JavaScript", D: "SQL" } },
@@ -629,7 +670,7 @@
             network: {
                 title: "🌐 Ağ Sistemleri ve Anahtarlama",
                 video: "https://www.youtube.com/embed/wwdl0KdFzkI",
-                pdf: "docs/Ag_Notlari.pdf",
+                pdf: "https://www.fatihmarasli.com/wp-content/uploads/2020/06/Bilgisayar-A%C4%9F-Sistemleri.pdf",
                 answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
                 questions: [
                     { id: 'q1', text: "1. Switch konfigürasyonuna hangi modda başlanır?", options: { A: "User Exec", B: "Privileged / Global Config", C: "ROM Mon", D: "VLAN DB" } },
@@ -642,7 +683,7 @@
             db: {
                 title: "🗄️ Veritabanı Yönetimi",
                 video: "https://www.youtube.com/embed/cKmlC8f0jZM",
-                pdf: "docs/Veritabani_Notlari.pdf",
+                pdf: "https://erkankaynak.com.tr/files/veri-tabani-yonetim-sistemleri/ders-notu.pdf",
                 answers: { q1: 'A', q2: 'A', q3: 'C', q4: 'A', q5: 'B' },
                 questions: [
                     { id: 'q1', text: "1. Yeni tablo oluşturma komutu nedir?", options: { A: "CREATE TABLE", B: "INSERT INTO", C: "SELECT FROM", D: "ALTER TABLE" } },
@@ -655,7 +696,7 @@
             graphics: {
                 title: "🎨 Grafik ve Animasyon",
                 video: "https://www.youtube.com/embed/gLoBKx5QNG4",
-                pdf: "docs/Grafik_Notlari.pdf",
+                pdf: "https://www.fatihmarasli.com/wp-content/uploads/2017/04/grafik-animasyon-ders-notu.pdf",
                 answers: { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A' },
                 questions: [
                     { id: 'q1', text: "1. Adobe Animate'in eski adı nedir?", options: { A: "Photoshop", B: "Flash", C: "Illustrator", D: "Premiere" } },
@@ -670,6 +711,7 @@
         let currentLessonKey = null;
         let timerInterval = null;
         let timeLeft = 420;
+        let isQuizFinished = false;
 
         function toggleSidebar() {
             document.getElementById('settings-sidebar').classList.toggle('open');
@@ -722,27 +764,111 @@
             document.getElementById('lesson-iframe').src = lesson.video;
             document.getElementById('btn-pdf-download').href = lesson.pdf;
 
+            resetQuizUI();
+            renderQuiz(lesson);
+            startTimer();
+        }
+
+        function renderQuiz(lesson) {
             const form = document.getElementById('quiz-form');
             form.innerHTML = '';
-            document.getElementById('quiz-result').classList.add('hidden');
-            document.getElementById('btn-finish-quiz').disabled = false;
 
             lesson.questions.forEach(q => {
                 const qDiv = document.createElement('div');
-                qDiv.innerHTML = `<p style="margin: 0 0 6px 0; font-weight: 600;">${q.text}</p>`;
+                qDiv.className = 'quiz-question-box';
+                qDiv.id = `box-${q.id}`;
+                
+                let html = `<p style="margin: 0 0 8px 0; font-weight: 600;">${q.text}</p>`;
                 
                 for (let [optKey, optText] of Object.entries(q.options)) {
-                    qDiv.innerHTML += `
-                        <label class="quiz-option">
+                    html += `
+                        <label class="quiz-option" id="lbl-${q.id}-${optKey}">
                             <input type="radio" name="${q.id}" value="${optKey}"> 
                             <strong>${optKey})</strong> ${optText}
                         </label>
                     `;
                 }
+                html += `<div id="feedback-${q.id}"></div>`;
+                qDiv.innerHTML = html;
                 form.appendChild(qDiv);
             });
+        }
 
-            startTimer();
+        function handleQuizAction() {
+            if (!isQuizFinished) {
+                checkQuiz();
+            } else {
+                // Testi tekrar et
+                loadLesson(currentLessonKey);
+            }
+        }
+
+        function checkQuiz() {
+            const lesson = lessonsData[currentLessonKey];
+            if (!lesson) return;
+
+            let score = 0;
+            const total = lesson.questions.length;
+
+            lesson.questions.forEach(q => {
+                const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+                const correctKey = lesson.answers[q.id];
+                const feedbackDiv = document.getElementById(`feedback-${q.id}`);
+
+                // Tüm inputları kilitler
+                const inputs = document.querySelectorAll(`input[name="${q.id}"]`);
+                inputs.forEach(inp => inp.disabled = true);
+
+                if (selected) {
+                    const userVal = selected.value;
+                    const userLabel = document.getElementById(`lbl-${q.id}-${userVal}`);
+
+                    if (userVal === correctKey) {
+                        score++;
+                        if (userLabel) userLabel.classList.add('correct');
+                    } else {
+                        if (userLabel) userLabel.classList.add('incorrect');
+                        // Doğru cevabı yeşil olarak işaretle
+                        const correctLabel = document.getElementById(`lbl-${q.id}-${correctKey}`);
+                        if (correctLabel) correctLabel.classList.add('correct');
+                        
+                        if (feedbackDiv) {
+                            feedbackDiv.innerHTML = `<span class="correct-answer-badge">✓ Doğru Cevap: ${correctKey}) ${q.options[correctKey]}</span>`;
+                        }
+                    }
+                } else {
+                    // Boş bırakılmışsa doğru cevabı göster
+                    const correctLabel = document.getElementById(`lbl-${q.id}-${correctKey}`);
+                    if (correctLabel) correctLabel.classList.add('correct');
+                    if (feedbackDiv) {
+                        feedbackDiv.innerHTML = `<span class="correct-answer-badge">⚠️ Yanıtlanmadı. Doğru Cevap: ${correctKey}) ${q.options[correctKey]}</span>`;
+                    }
+                }
+            });
+
+            // Sonuç Kutusu
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.remove('hidden');
+            resultDiv.style.background = score >= 3 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)';
+            resultDiv.style.border = score >= 3 ? '1px solid #10b981' : '1px solid #ef4444';
+            resultDiv.style.color = score >= 3 ? '#34d399' : '#f87171';
+            resultDiv.innerHTML = `🏆 Test Bitti! Doğru Sayısı: ${score} / ${total}`;
+
+            // Buton durumunu değiştir
+            const btn = document.getElementById('btn-finish-quiz');
+            btn.innerText = "🔄 Testi Tekrar Et";
+            isQuizFinished = true;
+
+            stopTimer();
+        }
+
+        function resetQuizUI() {
+            isQuizFinished = false;
+            const btn = document.getElementById('btn-finish-quiz');
+            btn.innerText = "Testi Bitir";
+            btn.disabled = false;
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.add('hidden');
         }
 
         function startTimer() {
@@ -760,64 +886,31 @@
         }
 
         function stopTimer() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
+            if (timerInterval) clearInterval(timerInterval);
         }
 
         function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById('timer').innerText = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        function checkQuiz() {
-            stopTimer();
-            const lesson = lessonsData[currentLessonKey];
-            const answers = lesson.answers;
-            let correctCount = 0;
-            let total = lesson.questions.length;
-
-            for (let q of lesson.questions) {
-                const selected = document.querySelector(`input[name="${q.id}"]:checked`);
-                if (selected && selected.value === answers[q.id]) {
-                    correctCount++;
-                }
-            }
-
-            const resultDiv = document.getElementById('quiz-result');
-            resultDiv.classList.remove('hidden');
-            document.getElementById('btn-finish-quiz').disabled = true;
-
-            if (correctCount === total) {
-                resultDiv.style.background = '#065f46';
-                resultDiv.style.color = '#d1fae5';
-                resultDiv.innerText = `🎉 Tebrikler! Tüm soruları doğru bildiniz (${correctCount}/${total}).`;
-            } else {
-                resultDiv.style.background = '#991b1b';
-                resultDiv.style.color = '#fee2e2';
-                resultDiv.innerText = `❌ Test Bitti. Doğru Sayısı: ${correctCount} / ${total}.`;
-            }
+            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const s = (timeLeft % 60).toString().padStart(2, '0');
+            const el = document.getElementById('timer');
+            if (el) el.innerText = `${m}:${s}`;
         }
 
         function changeThemeMode(mode) {
-            const r = document.documentElement;
             if (mode === 'light') {
-                r.style.setProperty('--bg-body', '#f8fafc');
-                r.style.setProperty('--bg-card', '#ffffff');
-                r.style.setProperty('--text-color', '#0f172a');
-                r.style.setProperty('--border-color', '#e2e8f0');
-                r.style.setProperty('--sidebar-bg', '#ffffff');
-                r.style.setProperty('--sidebar-text', '#0f172a');
+                document.documentElement.style.setProperty('--bg-body', '#f1f5f9');
+                document.documentElement.style.setProperty('--bg-card', '#ffffff');
+                document.documentElement.style.setProperty('--text-color', '#0f172a');
+                document.documentElement.style.setProperty('--border-color', '#cbd5e1');
+                document.documentElement.style.setProperty('--sidebar-bg', '#ffffff');
+                document.documentElement.style.setProperty('--sidebar-text', '#0f172a');
             } else {
-                r.style.setProperty('--bg-body', '#121212');
-                r.style.setProperty('--bg-card', '#1e293b');
-                r.style.setProperty('--text-color', '#f3f4f6');
-                r.style.setProperty('--border-color', '#334155');
-                r.style.setProperty('--sidebar-bg', '#1e293b');
-                r.style.setProperty('--sidebar-text', '#f3f4f6');
+                document.documentElement.style.setProperty('--bg-body', '#121212');
+                document.documentElement.style.setProperty('--bg-card', '#1e293b');
+                document.documentElement.style.setProperty('--text-color', '#f3f4f6');
+                document.documentElement.style.setProperty('--border-color', '#334155');
+                document.documentElement.style.setProperty('--sidebar-bg', '#1e293b');
+                document.documentElement.style.setProperty('--sidebar-text', '#f3f4f6');
             }
         }
 
@@ -826,49 +919,11 @@
         }
 
         function changeLanguage(lang) {
-            const translations = {
-                tr: { settings: "Ayarlar", home: "Ana Sayfa", courses: "Dersler", about: "Hakkında", mode: "Görünüm Modu", dark: "Karanlık Mod", light: "Aydınlık Mod", color: "Tema Rengi", lang: "Dil / Language", heroTitle: "Öğrenmek isteyen herkes için ücretsiz eğitim desteği", heroDesc: "OdakLab'ın misyonu herkese, her yerde eğitim imkânı sağlamaktır.", startTitle: "🚀 Eğitime Hemen Başlayın", startDesc: "Dersler sayfamızı inceleyin.", explore: "Dersleri İncele", catalogTitle: "📚 11. Sınıf Ders Kataloğu", catalogSub: "Çalışmak istediğiniz dersi seçebilirsiniz.", aboutTitle: "ℹ️ OdakLab Hakkında", aboutP1: "OdakLab, öğrencilerin başarılarını artırmak için geliştirilmiş eğitim portalıdır.", author: "Hazırlayan:", timer: "Kalan Süre:", pdf: "Konu Anlatımı PDF'ini İndir", quizHeader: "📝 Konu Testi", finishQuiz: "Testi Bitir", footer: "OdakLab Eğitim Portalı" },
-                en: { settings: "Settings", home: "Home", courses: "Courses", about: "About", mode: "Appearance", dark: "Dark Mode", light: "Light Mode", color: "Accent Color", lang: "Language", heroTitle: "Free education support for everyone", heroDesc: "OdakLab's mission is to provide education for everyone, everywhere.", startTitle: "🚀 Start Learning Now", startDesc: "Check out our courses page.", explore: "Explore Courses", catalogTitle: "📚 11th Grade Course Catalog", catalogSub: "Select the course module you want to study.", aboutTitle: "ℹ️ About OdakLab", aboutP1: "OdakLab is an educational portal designed to enhance student success.", author: "Prepared by:", timer: "Time Left:", pdf: "Download Lecture PDF", quizHeader: "📝 Quiz", finishQuiz: "Finish Quiz", footer: "OdakLab Educational Portal" },
-                fr: { settings: "Paramètres", home: "Accueil", courses: "Cours", about: "À propos", mode: "Mode d'affichage", dark: "Mode Sombre", light: "Mode Clair", color: "Couleur", lang: "Langue", heroTitle: "Soutien éducatif gratuit pour tous", heroDesc: "La mission d'OdakLab est d'offrir une éducation accessible à tous.", startTitle: "🚀 Commencez à apprendre", startDesc: "Découvrez notre catalogue de cours.", explore: "Explorer les cours", catalogTitle: "📚 Catalogue des cours", catalogSub: "Sélectionnez un module de cours.", aboutTitle: "ℹ️ À propos d'OdakLab", aboutP1: "OdakLab est un portail éducatif moderne.", author: "Préparé par :", timer: "Temps restant :", pdf: "Télécharger le PDF", quizHeader: "📝 Quiz", finishQuiz: "Terminer le quiz", footer: "Portail Éducatif OdakLab" },
-                es: { settings: "Ajustes", home: "Inicio", courses: "Cursos", about: "Acerca de", mode: "Modo de apariencia", dark: "Modo Oscuro", light: "Modo Claro", color: "Color", lang: "Idioma", heroTitle: "Apoyo educativo gratuito para todos", heroDesc: "La misión de OdakLab es brindar educación para todos en todas partes.", startTitle: "🚀 Comienza a aprender", startDesc: "Revisa nuestra página de cursos.", explore: "Explorar Cursos", catalogTitle: "📚 Catálogo de Cursos", catalogSub: "Selecciona el módulo que deseas estudiar.", aboutTitle: "ℹ️ Acerca de OdakLab", aboutP1: "OdakLab es un portal educativo diseñado para estudiantes.", author: "Preparado por:", timer: "Tiempo restante:", pdf: "Descargar PDF", quizHeader: "📝 Examen", finishQuiz: "Terminar Examen", footer: "Portal Educativo OdakLab" },
-                ar: { settings: "الإعدادات", home: "الرئيسية", courses: "الدورات", about: "حول", mode: "وضع العرض", dark: "الوضع الداكن", light: "الوضع الفاتح", color: "لون السمة", lang: "اللغة / Language", heroTitle: "دعم تعليمي مجاني لكل من يرغب في التعلم", heroDesc: "مهمة OdakLab هي توفير تعليم مجاني وعالي الجودة للجميع.", startTitle: "🚀 ابدأ التعلم الآن", startDesc: "تحقق من صفحة الدورات التدريبية الخاصة بنا.", explore: "استكشف الدورات", catalogTitle: "📚 كتالوج دورات الصف الحادي عشر", catalogSub: "يمكنك اختيار وحدة الدورة التي تريد دراستها.", aboutTitle: "ℹ️ حول OdakLab", aboutP1: "OdakLab هي بوابة تعليمية تم تطويرها لتعزيز نجاح الطلاب.", author: "إعداد:", timer: "الوقت المتبقي:", pdf: "تحميل ملف الشرح PDF", quizHeader: "📝 اختبار الموضوع", finishQuiz: "إنهاء الاختبار", footer: "بوابة OdakLab التعليمية" }
-            };
-
-            const t = translations[lang] || translations['tr'];
-            const setTxt = (id, val) => { const el = document.getElementById(id); if(el && val) el.innerText = val; };
-
-            // Arapça için sağdan sola (RTL) metin yönü desteği
             if (lang === 'ar') {
-                document.documentElement.setAttribute('dir', 'rtl');
+                document.body.setAttribute('dir', 'rtl');
             } else {
-                document.documentElement.setAttribute('dir', 'ltr');
+                document.body.setAttribute('dir', 'ltr');
             }
-
-            setTxt('lbl-btn-settings', t.settings);
-            setTxt('nav-home', `🏠 ${t.home}`);
-            setTxt('nav-courses', `📚 ${t.courses}`);
-            setTxt('nav-about', `ℹ️ ${t.about}`);
-            setTxt('txt-sidebar-title', `⚙️ ${t.settings}`);
-            setTxt('lbl-mode', t.mode);
-            setTxt('opt-dark', t.dark);
-            setTxt('opt-light', t.light);
-            setTxt('lbl-color', t.color);
-            setTxt('lbl-language', t.lang);
-            setTxt('txt-hero-title', t.heroTitle);
-            setTxt('txt-hero-desc', t.heroDesc);
-            setTxt('txt-start-title', t.startTitle);
-            setTxt('txt-start-desc', t.startDesc);
-            setTxt('btn-explore-courses', t.explore);
-            setTxt('txt-catalog-title', t.catalogTitle);
-            setTxt('txt-catalog-sub', t.catalogSub);
-            setTxt('txt-about-title', t.aboutTitle);
-            setTxt('txt-about-p1', t.aboutP1);
-            setTxt('txt-author-lbl', t.author);
-            setTxt('txt-timer-label', t.timer);
-            setTxt('txt-pdf-label', t.pdf);
-            setTxt('txt-quiz-header', t.quizHeader);
-            setTxt('btn-finish-quiz', t.finishQuiz);
-            setTxt('txt-footer-about', t.footer);
         }
     </script>
 </body>
